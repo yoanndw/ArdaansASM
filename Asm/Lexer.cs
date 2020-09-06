@@ -256,7 +256,34 @@ namespace Asm
                 }
                 else if (c == '&')
                 {
+                    if (!this.IsAtEnd())
+                    {
+                        char next = this.Peek();
+                        
+                        dynamic lexeme;
+                        Token tok;
 
+                        if (next == '$')
+                        {
+                            lexeme = this.ExpectNumber();
+                            tok = new AddressValueToken(this.tokenStartLine, this.tokenStartCol, lexeme);
+                        }
+                        else if (this.IsLetter(next))
+                        {
+                            lexeme = this.ExpectRegister();
+                            tok = new AddressRegisterToken(this.tokenStartLine, this.tokenStartCol, lexeme);
+                        }
+                        else
+                        {
+                            throw new Exception("expected register or number");
+                        }
+
+                        tokens.Add(tok);
+                    }
+                    else
+                    {
+                        throw new Exception("reached eof");
+                    }
                 }
                 else if (c != '\0')
                 {
