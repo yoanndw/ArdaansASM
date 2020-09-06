@@ -165,7 +165,7 @@ namespace Asm
             // If there was spaces
             if (this.current != oldCurrent || this.IsAtEnd())
             {
-                // TODO: throw exception
+                // TODO: change into UnexpectedEOFOrSpaceException
                 throw new UnexpectedSpaceAfterDollarException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol);
             }
         }
@@ -247,110 +247,16 @@ namespace Asm
 
                     tokens.Add(tok);
                 }
-                else if (c == '$')
+                else if (c == '#')
                 {
-                    try
-                    {
-                        byte nb = this.ScanNumber();
+                    byte nb = this.ExpectNumber();
+                    var tok = new NumericalValueToken(this.tokenStartLine, this.tokenStartCol, nb);
 
-                        var tok = new NumericalValueToken(this.tokenStartLine, this.tokenStartCol, nb);
-                        tokens.Add(tok);
-                    }
-                    catch (UnexpectedSpaceAfterDollarException e)
-                    {
-                        this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), e.Message);
-                        continue;
-                    }
-                    /*catch (ArgumentOutOfRangeException e)
-                    {
-                        throw new Exception("string to hex : no number", e);
-                    }*/
-                    catch (UnexpectedDigitsException e)
-                    {
-                        //throw new UnexpectedDigitsException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, s, e);
-                        this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), e.Message);
-                        continue;
-                    }
-                    catch (TooBigNumberException e)
-                    {
-                        //throw new TooBigNumberException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, s, e);
-                        this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), e.Message);
-                        continue;
-                    }
+                    tokens.Add(tok);
                 }
-                else if (c == '[')
+                else if (c == '&')
                 {
-                    ScanAddressResult addr;
-                    try
-                    {
-                        addr = this.ScanAddress();
-                    }
-                    catch (UnclosedBracketsException e)
-                    {
-                        this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), e.Message);
-                        continue;
-                    }
-                    catch (UnexpectedCharException e)
-                    {
-                        this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), e.Message);
-                        continue;
-                    }
-                    catch (UnexpectedSpaceAfterDollarException e)
-                    {
-                        this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), e.Message);
-                        continue;
-                    }
 
-                    switch (addr.Type)
-                    {
-                        case ScanAddressResult.EType.Value:
-                            {
-                                string sNb = addr.Value;
-
-                                try
-                                {
-                                    byte nb = this.StringToHex(sNb);
-
-                                    var tok = new AddressValueToken(this.tokenStartLine, this.tokenStartCol, nb);
-                                    tokens.Add(tok);
-                                }
-                                /*catch (ArgumentOutOfRangeException e)
-                                {
-                                    throw new Exception("string to hex : no number", e);
-                                }*/
-                                catch (UnexpectedDigitsException e)
-                                {
-                                    //throw new UnexpectedDigitsException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, s, e);
-                                    this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), e.Message);
-                                    continue;
-                                }
-                                catch (TooBigNumberException e)
-                                {
-                                    //throw new TooBigNumberException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, s, e);
-                                    this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), e.Message);
-                                    continue;
-                                }
-
-                                break;
-                            }
-
-                        case ScanAddressResult.EType.Register:
-                            {
-                                string word = addr.Value;
-                                if (!RegisterToken.IsKeywordValid(word))
-                                {
-                                    //throw new UnknownRegisterForAddressException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, word);
-                                    this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), $"Unknown register '{word}'");
-                                    continue;
-                                }
-
-                                Registers reg = RegisterToken.GetTypeFromKeyword(word);
-
-                                var tok = new AddressRegisterToken(this.tokenStartLine, this.tokenStartCol, reg);
-                                tokens.Add(tok);
-                                break;
-                            }
-                    }
                 }
                 else if (c != '\0')
                 {
@@ -361,6 +267,18 @@ namespace Asm
             }
 
             return tokens;
+        }
+
+        private string ScanWord()
+        {
+            var sb = new StringBuilder();
+
+            while (!this.IsAtEnd() && this.IsLetter(this.Peek()))
+            {
+                sb.Append(this.Advance());
+            }
+
+            return sb.ToString();
         }
 
         private string ScanWord(char firstChar)
@@ -376,71 +294,54 @@ namespace Asm
             return sb.ToString();
         }
 
-        private string ScanNumberStr()
+        public byte ScanNumericalValue()
         {
-            var sb = new StringBuilder("0x");
+            var sb = new StringBuilder();
 
-            this.ProhibitSpaces();
             while (!this.IsAtEnd() && this.IsHexDigit(this.Peek()))
             {
                 sb.Append(this.Advance());
             }
 
-            return sb.ToString();
-        }
-
-        private byte ScanNumber()
-        {
-            return this.StringToHex(this.ScanNumberStr());
-        }
-
-        class ScanAddressResult
-        {
-            internal enum EType
+            if (sb.Length > 0)
             {
-                Value, Register
-            }
-
-            internal EType Type { get; private set; }
-            internal string Value { get; private set; }
-
-            internal ScanAddressResult(EType type, string val)
-            {
-                this.Type = type;
-                this.Value = val;
-            }
-        }
-
-        private ScanAddressResult ScanAddress()
-        {
-            string lexeme;
-            ScanAddressResult.EType type;
-
-            char c = this.ExpectForce();
-            if (c == '$')
-            {
-                lexeme = this.ScanNumberStr();
-                type = ScanAddressResult.EType.Value;
-            }
-            else if (this.IsLetter(c))
-            {
-                lexeme = this.ScanWord(c);
-                type = ScanAddressResult.EType.Register;
+                return Convert.ToByte(sb.ToString(), 16);
             }
             else
             {
-                throw new UnexpectedCharException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, c);
+                throw new Exception("expected number, got nothing");
             }
+        }
 
-            c = this.ExpectForce();
-            if (c != ']')
+        public byte ExpectNumber()
+        {
+            this.ProhibitSpaces();
+
+            char c = this.Advance();
+            if (c == '$')
             {
-                throw new UnexpectedCharException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, c);
+                return this.ScanNumericalValue();
             }
+            else
+            {
+                throw new Exception("expected $ got " + c);
+            }
+        }
 
-            var result = new ScanAddressResult(type, lexeme);
+        public Registers ExpectRegister()
+        {
+            this.ProhibitSpaces();
 
-            return result;
+            string word = this.ScanWord();
+
+            if (RegisterToken.IsKeywordValid(word))
+            {
+                return RegisterToken.GetTypeFromKeyword(word);
+            }
+            else
+            {
+                throw new Exception("expected register got " + word);
+            }
         }
     }
 }

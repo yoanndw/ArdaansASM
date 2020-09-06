@@ -61,6 +61,19 @@ namespace Asm
         }
     }
 
+    class EOFException : LexingException
+    {
+        public EOFException(string lineContent, int line, int col)
+            : base("Reached end of file", lineContent, line, col)
+        {
+        }
+
+        public EOFException(string lineContent, int line, int col, Exception inner)
+            : base("Reached end of file", inner, lineContent, line, col)
+        {
+        }
+    }
+
     class UnknwonKeywordException : LexingException
     {
         public UnknwonKeywordException(string lineContent, int line, int col, string word)

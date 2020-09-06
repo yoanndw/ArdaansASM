@@ -11,11 +11,21 @@ namespace Asm
     {
         static void Main(string[] args)
         {
-            string program = @"[$g";
+            string program = @"#$05";
             var lex = new Lexer(program);
 
-            var tokens = lex.Tokenize();
-            lex.PrintErrors();
+            /*try
+            {
+                Console.WriteLine(lex.ExpectNumber());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }*/
+
+            lex.Tokenize().ForEach(Console.WriteLine);
+
+            //lex.PrintErrors();
 
             /*var asm = new Assembler(program);
             byte[] bin = asm.Assemble();
