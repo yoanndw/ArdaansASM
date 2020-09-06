@@ -11,7 +11,9 @@ namespace Asm
     {
         static void Main(string[] args)
         {
-            string program = @"&d";
+            string program = @"mov a #$05
+mov b &$06
+mov c &b";
             var lex = new Lexer(program);
 
             /*try
