@@ -21,7 +21,9 @@ namespace Asm
         private int tokenStartLine;
         private int tokenStartCol;
 
-        public Lexer(string source)
+        private List<Token> tokens;
+
+        private Lexer(string source)
         {
             this.source = source.Replace("\r", "").ToLower();
             this.splittedLines = this.source.Split('\n');
@@ -32,6 +34,8 @@ namespace Asm
 
             this.tokenStartLine = 1;
             this.tokenStartCol = 0;
+
+            this.tokens = new List<Token>();
         }
 
         private string GetCurrentLine()
@@ -185,10 +189,15 @@ namespace Asm
             return c;
         }
 
-        public List<Token> Tokenize()
+        public static List<Token> Tokenize(string source)
         {
-            var tokens = new List<Token>();
+            var lex = new Lexer(source);
+            lex.Tokenize();
+            return lex.tokens;
+        }
 
+        private void Tokenize()
+        {
             this.tokenStartLine = this.line;
             this.tokenStartCol = this.col - 1;
 
@@ -217,20 +226,23 @@ namespace Asm
                     }
                     else
                     {
+                        // error
                         continue;
                     }
 
-                    tokens.Add(tok);
+                    this.tokens.Add(tok);
                 }
                 else if (c == '#')
                 {
                     byte nb;
-                    bool ok = this.ExpectNumber(out nb);
-
-                    if (ok)
+                    if (this.ExpectNumber(out nb))
                     {
                         var tok = new NumericalValueToken(this.tokenStartLine, this.tokenStartCol, nb);
-                        tokens.Add(tok);
+                        this.tokens.Add(tok);
+                    }
+                    else
+                    {
+                        // error
                     }
                 }
                 else if (c == '&')
@@ -240,21 +252,24 @@ namespace Asm
                     if (this.ExpectRegister(out reg))
                     {
                         var tok = new AddressRegisterToken(this.tokenStartLine, this.tokenStartCol, reg);
-                        tokens.Add(tok);
+                        this.tokens.Add(tok);
                     }
                     else if (this.ExpectNumber(out nb))
                     {
                         var tok = new AddressValueToken(this.tokenStartLine, this.tokenStartCol, nb);
-                        tokens.Add(tok);
+                        this.tokens.Add(tok);
+                    }
+                    else
+                    {
+                        // error
                     }
                 }
                 else if (c != '\0')
                 {
+                    // error
                     continue;
                 }
             }
-
-            return tokens;
         }
 
         private string ScanWord()

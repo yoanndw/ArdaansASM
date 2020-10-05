@@ -7,7 +7,7 @@ namespace Asm.Assembly
 {
     public class Assembler
     {
-        private string program;
+        /*private string program;
 
         private Lexer lexer;
 
@@ -33,6 +33,6 @@ namespace Asm.Assembly
             var codeGenerator = new CodeGenerator(ast);
             
             return codeGenerator.GenerateCode();
-        }
+        }*/
     }
 }

@@ -14,7 +14,6 @@ namespace Asm
             string program = @"mov a #$05
 mov b &$06
 mov c &b";
-            var lex = new Lexer(program);
 
             /*try
             {
@@ -25,7 +24,7 @@ mov c &b";
                 Console.WriteLine(e);
             }*/
 
-            lex.Tokenize().ForEach(Console.WriteLine);
+            Lexer.Tokenize(program).ForEach(Console.WriteLine);
 
             //lex.PrintErrors();
 
