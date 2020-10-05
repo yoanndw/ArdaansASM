@@ -11,3 +11,16 @@ D:\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.csproj.CoreCompileInputs.cache
 D:\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.dll
 D:\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.pdb
 D:\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.genruntimeconfig.cache
+D:\shared\Code\C#\Asm\Asm\bin\Debug\netcoreapp3.1\Asm.exe
+D:\shared\Code\C#\Asm\Asm\bin\Debug\netcoreapp3.1\Asm.deps.json
+D:\shared\Code\C#\Asm\Asm\bin\Debug\netcoreapp3.1\Asm.runtimeconfig.json
+D:\shared\Code\C#\Asm\Asm\bin\Debug\netcoreapp3.1\Asm.runtimeconfig.dev.json
+D:\shared\Code\C#\Asm\Asm\bin\Debug\netcoreapp3.1\Asm.dll
+D:\shared\Code\C#\Asm\Asm\bin\Debug\netcoreapp3.1\Asm.pdb
+D:\shared\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.csprojAssemblyReference.cache
+D:\shared\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.AssemblyInfoInputs.cache
+D:\shared\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.AssemblyInfo.cs
+D:\shared\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.csproj.CoreCompileInputs.cache
+D:\shared\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.dll
+D:\shared\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.pdb
+D:\shared\Code\C#\Asm\Asm\obj\Debug\netcoreapp3.1\Asm.genruntimeconfig.cache

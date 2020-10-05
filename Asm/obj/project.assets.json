@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
+      "projectUniqueName": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
       "projectName": "Asm",
-      "projectPath": "D:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
+      "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
       "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-      "outputPath": "D:\\Code\\C#\\Asm\\Asm\\obj\\",
+      "outputPath": "S:\\Code\\C#\\Asm\\Asm\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -62,7 +62,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

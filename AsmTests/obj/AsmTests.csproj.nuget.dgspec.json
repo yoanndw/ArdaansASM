@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj": {}
+    "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj": {}
   },
   "projects": {
-    "D:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj": {
+    "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+        "projectUniqueName": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
         "projectName": "AsmTests",
-        "projectPath": "D:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+        "projectPath": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
         "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-        "outputPath": "D:\\Code\\C#\\Asm\\AsmTests\\obj\\",
+        "outputPath": "S:\\Code\\C#\\Asm\\AsmTests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
-                "projectPath": "D:\\Code\\C#\\Asm\\Asm\\Asm.csproj"
+              "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
+                "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj"
               }
             }
           }
@@ -79,18 +79,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
+    "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
+        "projectUniqueName": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
         "projectName": "Asm",
-        "projectPath": "D:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
+        "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
         "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-        "outputPath": "D:\\Code\\C#\\Asm\\Asm\\obj\\",
+        "outputPath": "S:\\Code\\C#\\Asm\\Asm\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -134,7 +134,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

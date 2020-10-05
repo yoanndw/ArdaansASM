@@ -11,9 +11,6 @@ namespace Asm
 {
     public class Lexer
     {
-        private ErrorLogger errorLogger;
-        public ErrorLogger ErrorLogger => this.errorLogger;
-
         private string source;
         private string[] splittedLines;
         private int current;
@@ -26,8 +23,6 @@ namespace Asm
 
         public Lexer(string source)
         {
-            this.errorLogger = new ErrorLogger();
-
             this.source = source.Replace("\r", "").ToLower();
             this.splittedLines = this.source.Split('\n');
             this.current = 0;
@@ -37,12 +32,6 @@ namespace Asm
 
             this.tokenStartLine = 1;
             this.tokenStartCol = 0;
-        }
-
-        public void PrintErrors()
-        {
-            if (!this.errorLogger.IsEmpty())
-                this.errorLogger.PrintErrors();
         }
 
         private string GetCurrentLine()
@@ -174,7 +163,7 @@ namespace Asm
         /// Reads the next character, ignoring spaces, new lines, and comments.
         /// </summary>
         /// <returns>next character</returns>
-        private char Expect()
+        private char ReadNext()
         {
             this.ConsumeSpaces();
             if (this.IsAtEnd())
@@ -196,18 +185,6 @@ namespace Asm
             return c;
         }
 
-        private char ExpectForce()
-        {
-            char c = this.Expect();
-            if (c == '\0')
-            {
-                // TODO: throw EOFException, then catch to throw UnclosedBracketsException
-                throw new UnclosedBracketsException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol);
-            }
-
-            return c;
-        }
-
         public List<Token> Tokenize()
         {
             var tokens = new List<Token>();
@@ -217,7 +194,7 @@ namespace Asm
 
             while (!this.IsAtEnd())
             {
-                char c = this.Expect();
+                char c = this.ReadNext();
 
                 tokenStartLine = this.line;
                 tokenStartCol = this.col - 1; // because `current` points to the next char
@@ -240,8 +217,6 @@ namespace Asm
                     }
                     else
                     {
-                        //throw new UnknwonKeywordException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, word);
-                        this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), $"Unknown keyword '{word}'");
                         continue;
                     }
 
@@ -249,46 +224,32 @@ namespace Asm
                 }
                 else if (c == '#')
                 {
-                    byte nb = this.ExpectNumber();
-                    var tok = new NumericalValueToken(this.tokenStartLine, this.tokenStartCol, nb);
+                    byte nb;
+                    bool ok = this.ExpectNumber(out nb);
 
-                    tokens.Add(tok);
+                    if (ok)
+                    {
+                        var tok = new NumericalValueToken(this.tokenStartLine, this.tokenStartCol, nb);
+                        tokens.Add(tok);
+                    }
                 }
                 else if (c == '&')
                 {
-                    if (!this.IsAtEnd())
+                    Registers reg;
+                    byte nb;
+                    if (this.ExpectRegister(out reg))
                     {
-                        char next = this.Peek();
-                        
-                        dynamic lexeme;
-                        Token tok;
-
-                        if (next == '$')
-                        {
-                            lexeme = this.ExpectNumber();
-                            tok = new AddressValueToken(this.tokenStartLine, this.tokenStartCol, lexeme);
-                        }
-                        else if (this.IsLetter(next))
-                        {
-                            lexeme = this.ExpectRegister();
-                            tok = new AddressRegisterToken(this.tokenStartLine, this.tokenStartCol, lexeme);
-                        }
-                        else
-                        {
-                            throw new Exception("expected register or number");
-                        }
-
+                        var tok = new AddressRegisterToken(this.tokenStartLine, this.tokenStartCol, reg);
                         tokens.Add(tok);
                     }
-                    else
+                    else if (this.ExpectNumber(out nb))
                     {
-                        throw new Exception("reached eof");
+                        var tok = new AddressValueToken(this.tokenStartLine, this.tokenStartCol, nb);
+                        tokens.Add(tok);
                     }
                 }
                 else if (c != '\0')
                 {
-                    //throw new UnexpectedCharException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, c);
-                    this.errorLogger.LogError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine(), $"Unexpected char '{c}'");
                     continue;
                 }
             }
@@ -340,35 +301,63 @@ namespace Asm
             }
         }
 
-        public byte ExpectNumber()
+        public bool Expect(char c)
         {
-            this.ProhibitSpaces();
+            if (this.IsAtEnd())
+                return false;
 
-            char c = this.Advance();
-            if (c == '$')
-            {
-                return this.ScanNumericalValue();
-            }
-            else
-            {
-                throw new Exception("expected $ got " + c);
-            }
+            return this.Advance() == c;
         }
 
-        public Registers ExpectRegister()
+        public bool ExpectLetter()
         {
-            this.ProhibitSpaces();
+            if (this.IsAtEnd())
+                return false;
+
+            return this.IsLetter(this.Peek());
+        }
+
+        public bool ExpectNumber(out byte number)
+        {
+            number = 0;
+            if (!this.Expect('$'))
+            {
+                return false;
+            }
+
+            if (this.IsAtEnd())
+            {
+                return false;
+            }
+            else if (!this.IsHexDigit(this.Peek()))
+            {
+                return false;
+            }
+
+            number = this.ScanNumericalValue();
+            return true;
+        }
+
+        public bool ExpectRegister(out Registers register)
+        {
+            register = Registers.RegA;
+            if (this.IsAtEnd())
+            {
+                return false;
+            }
+            else if (!this.ExpectLetter())
+            {
+                return false;
+            }
 
             string word = this.ScanWord();
+            if (!RegisterToken.IsKeywordValid(word))
+            {
+                return false;
+            }
 
-            if (RegisterToken.IsKeywordValid(word))
-            {
-                return RegisterToken.GetTypeFromKeyword(word);
-            }
-            else
-            {
-                throw new Exception("expected register got " + word);
-            }
+            register = RegisterToken.GetTypeFromKeyword(word);
+            return true;
         }
     }
 }
