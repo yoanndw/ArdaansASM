@@ -11,31 +11,9 @@ namespace Asm
     {
         static void Main(string[] args)
         {
-            string program = @"mov a #$05
-mov b &$06
-mov c &b";
-
-            /*try
-            {
-                Console.WriteLine(lex.ExpectNumber());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }*/
+            string program = @"#$ m. 05 &z &5";
 
             Lexer.Tokenize(program).ForEach(Console.WriteLine);
-
-            //lex.PrintErrors();
-
-            /*var asm = new Assembler(program);
-            byte[] bin = asm.Assemble();
-
-            var vm = new VirtualMachine();
-            vm.LoadProgram(bin);
-
-            vm.Run();
-            vm.PrintState();*/
         }
     }
 }

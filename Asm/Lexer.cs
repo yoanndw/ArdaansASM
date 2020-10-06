@@ -22,6 +22,7 @@ namespace Asm
         private int tokenStartCol;
 
         private List<Token> tokens;
+        private int errorsCount;
 
         private Lexer(string source)
         {
@@ -36,8 +37,10 @@ namespace Asm
             this.tokenStartCol = 0;
 
             this.tokens = new List<Token>();
+            this.errorsCount = 0;
         }
 
+        #region Reading
         private string GetCurrentLine()
         {
             return this.splittedLines[this.line - 1];
@@ -188,6 +191,13 @@ namespace Asm
             // c if not a ';' anymore
             return c;
         }
+        #endregion
+
+        private void LogError(string message)
+        {
+            Console.WriteLine(message);
+            this.errorsCount++;
+        }
 
         public static List<Token> Tokenize(string source)
         {
@@ -227,6 +237,7 @@ namespace Asm
                     else
                     {
                         // error
+                        this.LogError("unknown word " + word);
                         continue;
                     }
 
@@ -243,6 +254,7 @@ namespace Asm
                     else
                     {
                         // error
+                        this.LogError("expected number");
                     }
                 }
                 else if (c == '&')
@@ -262,13 +274,20 @@ namespace Asm
                     else
                     {
                         // error
+                        this.LogError("expected register or number (for address)");
                     }
                 }
                 else if (c != '\0')
                 {
                     // error
+                    this.LogError("unexpected char " + c);
                     continue;
                 }
+            }
+
+            if (this.errorsCount != 0)
+            {
+                Console.WriteLine(this.errorsCount + " errors found.");
             }
         }
 
