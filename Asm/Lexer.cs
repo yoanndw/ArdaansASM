@@ -90,26 +90,6 @@ namespace Asm
             return c == '\n';
         }
 
-        private byte StringToHex(string s)
-        {
-            try
-            {
-                return Convert.ToByte(s, 16);
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                throw new Exception("string to hex : no number", e);
-            }
-            catch (FormatException e)
-            {
-                throw new UnexpectedDigitsException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, e);
-            }
-            catch (OverflowException e)
-            {
-                throw new TooBigNumberException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol, s, e);
-            }
-        }
-
         private void ConsumeSpaces()
         {
             while (!this.IsAtEnd() && this.IsSpace(this.Peek()))
@@ -132,37 +112,6 @@ namespace Asm
                 // Advance on the '\n'
                 this.Advance();
                 this.NewLine();
-            }
-        }
-
-        private void ConsumeSpacesForce()
-        {
-            this.ConsumeSpaces();
-            if (this.IsAtEnd())
-            {
-                // throw new Exception("consume spaces : EOF");
-            }
-        }
-
-        private void ConsumeCommentForce()
-        {
-            this.ConsumeComment();
-            if (this.IsAtEnd())
-            {
-                // throw new Exception("consume comment : EOF");
-            }
-        }
-
-        private void ProhibitSpaces()
-        {
-            int oldCurrent = this.current;
-            this.ConsumeSpaces();
-
-            // If there was spaces
-            if (this.current != oldCurrent || this.IsAtEnd())
-            {
-                // TODO: change into UnexpectedEOFOrSpaceException
-                throw new UnexpectedSpaceAfterDollarException(this.GetCurrentLine(), this.tokenStartLine, this.tokenStartCol);
             }
         }
 
