@@ -316,10 +316,11 @@ namespace Asm
             return sb.ToString();
         }
 
-        public byte ScanNumericalValue()
+        public bool ScanNumericalValue(out byte nb)
         {
-            var sb = new StringBuilder();
+            nb = 0;
 
+            var sb = new StringBuilder();
             while (!this.IsAtEnd() && this.IsHexDigit(this.Peek()))
             {
                 sb.Append(this.Advance());
@@ -327,12 +328,10 @@ namespace Asm
 
             if (sb.Length > 0)
             {
-                return Convert.ToByte(sb.ToString(), 16);
+                return byte.TryParse(sb.ToString(), NumberStyles.HexNumber, provider: null, out nb);
             }
-            else
-            {
-                throw new Exception("expected number, got nothing");
-            }
+
+            return false;
         }
 
         public bool Expect(char c)
@@ -368,8 +367,7 @@ namespace Asm
                 return false;
             }
 
-            number = this.ScanNumericalValue();
-            return true;
+            return this.ScanNumericalValue(out number);
         }
 
         public bool ExpectRegister(out Registers register)

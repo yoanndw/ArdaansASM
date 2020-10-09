@@ -11,7 +11,7 @@ namespace Asm
     {
         static void Main(string[] args)
         {
-            string program = @"#$ m. 05 &z &5";
+            string program = @"mzv # $ 05 &$ &f #$555";
 
             Lexer.Tokenize(program).ForEach(Console.WriteLine);
         }
