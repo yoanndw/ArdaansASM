@@ -142,10 +142,32 @@ namespace Asm
         }
         #endregion
 
-        private void LogError(string message)
+        private void LogUnknownKeywordError(string word)
         {
-            Console.WriteLine(message);
             this.errorsCount++;
+            var err = new UnknownKeywordError(word, this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine());
+            Console.WriteLine(err);
+        }
+
+        private void LogExpectedNumberError()
+        {
+            this.errorsCount++;
+            var err = new ExpectedNumberError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine());
+            Console.WriteLine(err);
+        }
+
+        private void LogUnexpectedTokenForAddressError()
+        {
+            this.errorsCount++;
+            var err = new UnexpectedTokenForAddressError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine());
+            Console.WriteLine(err);
+        }
+
+        private void LogUnexpectedCharError(char c)
+        {
+            this.errorsCount++;
+            var err = new UnexpectedCharError(c, this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine());
+            Console.WriteLine(err);
         }
 
         public static List<Token> Tokenize(string source)
@@ -185,8 +207,7 @@ namespace Asm
                     }
                     else
                     {
-                        // error
-                        this.LogError("unknown word " + word);
+                        this.LogUnknownKeywordError(word);
                         continue;
                     }
 
@@ -202,8 +223,7 @@ namespace Asm
                     }
                     else
                     {
-                        // error
-                        this.LogError("expected number");
+                        this.LogExpectedNumberError();
                     }
                 }
                 else if (c == '&')
@@ -222,15 +242,13 @@ namespace Asm
                     }
                     else
                     {
-                        // error
-                        this.LogError("expected register or number (for address)");
+                        this.LogUnexpectedTokenForAddressError();
                     }
                 }
                 else if (c != '\0')
                 {
-                    // error
-                    this.LogError("unexpected char " + c);
-                    continue;
+                    this.LogUnexpectedCharError(c);
+                    //continue;
                 }
             }
 

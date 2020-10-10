@@ -5,53 +5,66 @@ using System.Text;
 
 namespace Asm.Errors
 {
-    public class SyntaxError
+    public abstract class SyntaxError
     {
+        private string message;
+
         private int line;
         private int col;
 
         private string lineContent;
-        private string message;
 
-        public SyntaxError(int line, int col, string lineContent, string message)
+        public SyntaxError(string message, int line, int col, string lineContent)
         {
+            this.message = message;
+
             this.line = line;
             this.col = col;
 
             this.lineContent = lineContent;
-            this.message = $"At line {this.line}: {message}";
         }
 
         private string IndicateOnLine()
         {
-            var sb = new StringBuilder();
-            sb.Append(this.lineContent + "\n");
+            var sb = new StringBuilder(this.lineContent + "\n");
+            string spaces = string.Concat(Enumerable.Repeat(" ", this.col));
 
-            string indicatorSpaces = string.Concat(Enumerable.Repeat(" ", this.col));
-            sb.Append(indicatorSpaces + "^");
+            sb.Append(spaces + "^");
 
             return sb.ToString();
         }
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
-            sb.Append(this.message + "\n\n");
-            sb.Append(this.IndicateOnLine());
+            var sb = new StringBuilder("================\n");
+            sb.Append($"At line {this.line}: {this.message}\n\n");
+            sb.Append(this.IndicateOnLine() + "\n================");
 
             return sb.ToString();
         }
+    }
 
-        public override bool Equals(object obj)
-        {
-            var o = obj as SyntaxError;
-            if (o == null)
-                return false;
+    public class UnknownKeywordError : SyntaxError
+    {
+        public UnknownKeywordError(string word, int line, int col, string lineContent)
+            : base($"Unknown keyword '{word}'", line, col, lineContent) { }
+    }
 
-            return this.line == o.line 
-                && this.col == o.col 
-                && this.lineContent == o.lineContent 
-                && this.message == o.message;
-        }
+    public class ExpectedNumberError : SyntaxError
+    {
+        public ExpectedNumberError(int line, int col, string lineContent)
+            : base("Expected hex number", line, col, lineContent) { }
+    }
+
+    public class UnexpectedTokenForAddressError : SyntaxError
+    {
+        public UnexpectedTokenForAddressError(int line, int col, string lineContent)
+            : base("Expected number or register for the address", line, col, lineContent) { }
+    }
+
+    public class UnexpectedCharError : SyntaxError
+    {
+        public UnexpectedCharError(char c, int line, int col, string lineContent)
+            : base($"Unexpected character '{c}'", line, col, lineContent) { }
     }
 }
