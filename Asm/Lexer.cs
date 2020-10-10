@@ -142,32 +142,34 @@ namespace Asm
         }
         #endregion
 
-        private void LogUnknownKeywordError(string word)
+        private void LogError(SyntaxError err)
         {
             this.errorsCount++;
-            var err = new UnknownKeywordError(word, this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine());
             Console.WriteLine(err);
+        }
+
+        private void LogUnknownKeywordError(string word)
+        {
+            var err = new UnknownKeywordError(word, this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine());
+            this.LogError(err);
         }
 
         private void LogExpectedNumberError()
         {
-            this.errorsCount++;
             var err = new ExpectedNumberError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine());
-            Console.WriteLine(err);
+            this.LogError(err);
         }
 
         private void LogUnexpectedTokenForAddressError()
         {
-            this.errorsCount++;
             var err = new UnexpectedTokenForAddressError(this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine());
-            Console.WriteLine(err);
+            this.LogError(err);
         }
 
         private void LogUnexpectedCharError(char c)
         {
-            this.errorsCount++;
             var err = new UnexpectedCharError(c, this.tokenStartLine, this.tokenStartCol, this.GetCurrentLine());
-            Console.WriteLine(err);
+            this.LogError(err);
         }
 
         public static List<Token> Tokenize(string source)
