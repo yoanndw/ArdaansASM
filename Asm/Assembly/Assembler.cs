@@ -7,32 +7,28 @@ namespace Asm.Assembly
 {
     public class Assembler
     {
-        /*private string program;
+        private string program;
 
-        private Lexer lexer;
+        private byte[] binaryCode;
 
-        public Assembler(string program)
+        private Assembler(string program)
         {
             this.program = program;
-            this.lexer = new Lexer(this.program);
         }
 
-        public void LoadProgram(string program)
+        public static byte[] Assemble(string program)
         {
-            this.program = program;
-            this.lexer = new Lexer(this.program);
+            var asm = new Assembler(program);
+            asm.Assemble();
+
+            return asm.binaryCode;
         }
 
-        public byte[] Assemble()
+        private void Assemble()
         {
-            var tokens = this.lexer.Tokenize();
-
-            var parser = new Parser(tokens);
-            var ast = parser.GenerateAst();
-
-            var codeGenerator = new CodeGenerator(ast);
-            
-            return codeGenerator.GenerateCode();
-        }*/
+            var tokens = Lexer.Tokenize(this.program);
+            var ast = Parser.Parse(tokens);
+            this.binaryCode = CodeGenerator.GenerateBinaryCode(ast);
+        }
     }
 }

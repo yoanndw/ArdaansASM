@@ -12,13 +12,10 @@ namespace Asm
         static void Main(string[] args)
         {
             string program = @"mov a #$5";
-            var tokens = Lexer.Tokenize(program);
 
-            var ast = Parser.Parse(tokens);
-            byte[] bin = CodeGenerator.GenerateBinaryCode(ast);
+            byte[] bin = Assembler.Assemble(program);
 
-            var vm = new VirtualMachine();
-            vm.LoadProgram(bin);
+            var vm = new VirtualMachine(bin);
             vm.Run();
             vm.PrintState();
         }
