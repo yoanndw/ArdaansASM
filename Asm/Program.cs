@@ -11,9 +11,13 @@ namespace Asm
     {
         static void Main(string[] args)
         {
-            string program = @"mzv # $ 05 &$ &f #$555";
+            string program = @"mov a #$5";
 
-            Lexer.Tokenize(program).ForEach(Console.WriteLine);
+            byte[] bin = Assembler.Assemble(program);
+
+            var vm = new VirtualMachine(bin);
+            vm.Run();
+            vm.PrintState();
         }
     }
 }

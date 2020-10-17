@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Asm.Assembly.CodeGen;
+using Asm.Assembly;
 
 namespace Asm.Tokens
 {
@@ -16,6 +16,8 @@ namespace Asm.Tokens
             this.line = line;
             this.col = col;
         }
+
+        public abstract byte GenerateCode();
 
         public abstract override string ToString();
 

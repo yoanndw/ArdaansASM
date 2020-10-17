@@ -2,52 +2,29 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Asm.Assembly.CodeGen;
+using Asm.Assembly;
 using Asm.Tokens;
 
 namespace Asm.Parsing.Ast
 {
-    public class MulInstruction : Instruction2OpsNode
+    public class MulInstruction : TwoOperandsNode
     {
         public MulInstruction(Token operand1, Token operand2)
             : base(operand1, operand2)
         {
         }
 
-        public override InstructionGen EvalOperandsType()
+        public override byte[] GenerateCode()
         {
-            dynamic newOperand1 = null;
-            switch (this.operand1)
-            {
-                case RegisterToken o:
-                    newOperand1 = o;
-                    break;
+            Type operand1Type = this.operand1.GetType();
+            Type operand2Type = this.operand2.GetType();
 
-                default:
-                    //TODO: throw exception
-                    break;
-            }
+            byte opcode = CodeGenerator.MulOpcodes[(operand1Type, operand2Type)];
 
-            dynamic newOperand2 = null;
-            switch (this.operand2)
-            {
-                case NumericalValueToken o:
-                    newOperand2 = o;
-                    break;
-
-                case RegisterToken o:
-                    newOperand2 = o;
-                    break;
-
-                default:
-                    //TODO: throw exception
-                    break;
-            }
-
-            return InstructionGen.Mul(newOperand1, newOperand2); // en fonction du type => différent type de mov
+            return CodeGenerator.GenerateForTwoOperands(opcode, operand1, operand2);
         }
 
         public override string ToString()
-            => $"Node<Mul>[Op1: {this.operand1} Op2: {this.operand2}]";
+            => $"Node<Mul>{{ {this.operand1}, {this.operand2} }}";
     }
 }

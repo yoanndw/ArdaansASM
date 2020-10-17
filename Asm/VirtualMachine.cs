@@ -43,6 +43,12 @@ namespace Asm
             this.instructionPointer = 0;
         }
 
+        public VirtualMachine(byte[] program)
+            : this()
+        {
+            this.LoadProgram(program);
+        }
+
         public void LoadProgram(byte[] program)
         {
             for (int i = 0; i < this.progMemory.Length; i++)

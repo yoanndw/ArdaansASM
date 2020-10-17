@@ -3,37 +3,174 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Asm.Assembly.CodeGen;
 using Asm.Parsing;
 using Asm.Parsing.Ast;
+using Asm.Tokens;
 
 namespace Asm.Assembly
 {
+    using Ast = List<OneOperandNode>;
+    using OneOperandInstructionOpcodesRef = Dictionary<Type, byte>;
+    using TwoOperandsInstructionOpcodesRef = Dictionary<(Type, Type), byte>;
+
     public class CodeGenerator
     {
-        private List<InstructionNode> ast;
+        #region Opcodes Definition
+        // Mov
+        public static TwoOperandsInstructionOpcodesRef MovOpcodes = new TwoOperandsInstructionOpcodesRef
+        {
+            // mov R V
+            { (typeof(RegisterToken), typeof(NumericalValueToken)), 0x01 },
 
-        public CodeGenerator(List<InstructionNode> ast)
+            // mov R A
+            { (typeof(RegisterToken), typeof(AddressValueToken)), 0x02 },
+
+            // mov A R
+            { (typeof(AddressValueToken), typeof(RegisterToken)), 0x03 },
+
+            // mov R &R
+            { (typeof(RegisterToken), typeof(AddressRegisterToken)), 0x04 },
+
+            // mov &R R
+            { (typeof(AddressRegisterToken), typeof(RegisterToken)), 0x05 },
+
+            // mov R R
+            { (typeof(RegisterToken), typeof(RegisterToken)), 0x06 }
+        };
+
+        // Add
+        public static TwoOperandsInstructionOpcodesRef AddOpcodes = new TwoOperandsInstructionOpcodesRef
+        {
+            // add R V
+            { (typeof(RegisterToken), typeof(NumericalValueToken)), 0x07 },
+
+            // add R R
+            { (typeof(RegisterToken), typeof(RegisterToken)), 0x08 }
+        };
+
+        // Sub
+        public static TwoOperandsInstructionOpcodesRef SubOpcodes = new TwoOperandsInstructionOpcodesRef
+        {
+            // sub R V
+            { (typeof(RegisterToken), typeof(NumericalValueToken)), 0x09 },
+
+            // sub R R
+            { (typeof(RegisterToken), typeof(RegisterToken)), 0x0A }
+        };
+
+        // Mul
+        public static TwoOperandsInstructionOpcodesRef MulOpcodes = new TwoOperandsInstructionOpcodesRef
+        {
+            // mul R V
+            { (typeof(RegisterToken), typeof(NumericalValueToken)), 0x0B },
+
+            // mul R R
+            { (typeof(RegisterToken), typeof(RegisterToken)), 0x0C }
+        };
+
+        // Div
+        public static TwoOperandsInstructionOpcodesRef DivOpcodes = new TwoOperandsInstructionOpcodesRef
+        {
+            // div R V
+            { (typeof(RegisterToken), typeof(NumericalValueToken)), 0x0D },
+
+            // div R R
+            { (typeof(RegisterToken), typeof(RegisterToken)), 0x0E }
+        };
+
+        // Cmp
+        public static TwoOperandsInstructionOpcodesRef CmpOpcodes = new TwoOperandsInstructionOpcodesRef
+        {
+            // cmp R V
+            { (typeof(RegisterToken), typeof(NumericalValueToken)), 0x0F },
+
+            // cmp R R
+            { (typeof(RegisterToken), typeof(RegisterToken)), 0x10 }
+        };
+
+        // Inc
+        public static OneOperandInstructionOpcodesRef IncOpcodes = new OneOperandInstructionOpcodesRef
+        {
+            // inc R
+            { typeof(RegisterToken), 0x11 }
+        };
+
+        // Dec
+        public static OneOperandInstructionOpcodesRef DecOpcodes = new OneOperandInstructionOpcodesRef
+        {
+            // dec R
+            { typeof(RegisterToken), 0x12 }
+        };
+
+        // Jmp
+        public static OneOperandInstructionOpcodesRef JmpOpcodes = new OneOperandInstructionOpcodesRef
+        {
+            // jmp V
+            { typeof(NumericalValueToken), 0x13 }
+        };
+
+        // Jeq
+        public static OneOperandInstructionOpcodesRef JeqOpcodes = new OneOperandInstructionOpcodesRef
+        {
+            // jeq V
+            { typeof(NumericalValueToken), 0x14 }
+        };
+
+        // Jne
+        public static OneOperandInstructionOpcodesRef JneOpcodes = new OneOperandInstructionOpcodesRef
+        {
+            // jne V
+            { typeof(NumericalValueToken), 0x15 }
+        };
+
+        // Jsm
+        public static OneOperandInstructionOpcodesRef JsmOpcodes = new OneOperandInstructionOpcodesRef
+        {
+            // jsm V
+            { typeof(NumericalValueToken), 0x16 }
+        };
+
+        // Jns
+        public static OneOperandInstructionOpcodesRef JnsOpcodes = new OneOperandInstructionOpcodesRef
+        {
+            // jns V
+            { typeof(NumericalValueToken), 0x17 }
+        };
+        #endregion
+
+        #region Instruction Code Generation
+        public static byte[] GenerateForOneOperand(byte instructionOpcode, Token operand)
+        {
+            return new byte[] { instructionOpcode, operand.GenerateCode() };
+        }
+
+        public static byte[] GenerateForTwoOperands(byte instructionOpcode, Token operand1, Token operand2)
+        {
+            return new byte[] { instructionOpcode, operand1.GenerateCode(), operand2.GenerateCode() };
+        }
+        #endregion
+
+        private Ast ast;
+        private byte[] binaryCode;
+
+        private CodeGenerator(Ast ast)
         {
             this.ast = ast;
         }
 
-        public byte[] GenerateCode()
+        public static byte[] GenerateBinaryCode(Ast ast)
         {
-            var generators = this.CreateCodeGenerators();
-            List<byte[]> code = generators.ConvertAll(gen => gen.GenerateCode());
+            var codeGenerator = new CodeGenerator(ast);
+            codeGenerator.GenerateBinaryCode();
 
-            // Flattened = in 1D array
-            byte[] finalCode = code.SelectMany(b => b).ToArray();
-
-            return finalCode;
+            return codeGenerator.binaryCode;
         }
 
-        private List<InstructionGen> CreateCodeGenerators()
+        private void GenerateBinaryCode()
         {
-            List<InstructionGen> bytes = this.ast.ConvertAll(node => node.EvalOperandsType());
+            var lsCode = this.ast.ConvertAll(node => node.GenerateCode());
 
-            return bytes;
+            this.binaryCode = lsCode.SelectMany(code => code).ToArray(); // flattens
         }
     }
 }

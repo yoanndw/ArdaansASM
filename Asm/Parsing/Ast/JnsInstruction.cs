@@ -2,36 +2,28 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Asm.Assembly.CodeGen;
+using Asm.Assembly;
 using Asm.Tokens;
 
 namespace Asm.Parsing.Ast
 {
-    public class JnsInstruction : InstructionNode
+    public class JnsInstruction : OneOperandNode
     {
         public JnsInstruction(Token operand1)
             : base(operand1)
         {
         }
 
-        public override InstructionGen EvalOperandsType()
+        public override byte[] GenerateCode()
         {
-            dynamic newOperand1 = null;
-            switch (this.operand1)
-            {
-                case NumericalValueToken o:
-                    newOperand1 = o;
-                    break;
+            Type operand1Type = this.operand1.GetType();
 
-                default:
-                    //TODO: throw exception
-                    break;
-            }
+            byte opcode = CodeGenerator.JnsOpcodes[operand1Type];
 
-            return InstructionGen.Jns(newOperand1); // en fonction du type => différent type de mov
+            return CodeGenerator.GenerateForOneOperand(opcode, operand1);
         }
 
         public override string ToString()
-            => $"Node<Jns>[Op1: {this.operand1}]";
+            => $"Node<Jns>{{ {this.operand1} }}";
     }
 }
