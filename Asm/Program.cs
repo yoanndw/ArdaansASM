@@ -11,9 +11,10 @@ namespace Asm
     {
         static void Main(string[] args)
         {
-            string program = @"mzv # $ 05 &$ &f #$555";
+            string program = @"mov a #$5";
+            var tokens = Lexer.Tokenize(program);
 
-            Lexer.Tokenize(program).ForEach(Console.WriteLine);
+            Parser.Parse(tokens).ForEach(Console.WriteLine);
         }
     }
 }

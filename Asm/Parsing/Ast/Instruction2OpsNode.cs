@@ -12,7 +12,5 @@ namespace Asm.Parsing.Ast
         {
             this.operand2 = operand2;
         }
-
-        
     }
 }

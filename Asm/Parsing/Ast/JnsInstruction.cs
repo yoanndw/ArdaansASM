@@ -32,6 +32,6 @@ namespace Asm.Parsing.Ast
         }
 
         public override string ToString()
-            => $"Node<Jns>[Op1: {this.operand1}]";
+            => $"Node<Jns>{{ {this.operand1} }}";
     }
 }
