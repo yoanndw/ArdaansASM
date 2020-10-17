@@ -50,7 +50,7 @@ VASM is made up of a virtual machine (VM), that interpret binary code (see [Opco
 | `cmp a b`    | `10 00 01`  |                                                Compares the value stored in `A` with the value stored in `B`. See [Compare](#user-content-flags) |
 | `inc a`      |   `11 00`   |                                                                                                                            Increments the register `A` |
 | `dec b`      |   `12 00`   |                                                                                                                            Decrements the register `A` |
-| `jmp #$05`   |   `13 05`   |                                                                                            Jumps to the byte `$05` of the Program Memory. See [Jump]() |
+| `jmp #$05`   |   `13 05`   |                                                                                            Jumps to the byte `$05` of the Program Memory. See [Jump](#user-content-jump) |
 | `jeq #$05`   |   `14 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Eq` is set. See [Flags](#user-content-flags) and [Jump](#user-content-jump) |
 | `jne #$05`   |   `15 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Eq` is not set. See [Flags](#user-content-flags) and [Jump](#user-content-jump) |
 | `jsm #$05`   |   `16 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Sm` is set. See [Flags](#user-content-flags) and [Jump](#user-content-jump) |
