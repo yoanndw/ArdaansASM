@@ -2,7 +2,7 @@
 
 **Note of October 17: The work is still in progress. The first version will be available soon.**
 
-VASM is made up of a virtual machine (VM), that interpret binary code (see [Opcodes](#user-content-opcodes_title)); and an assembler, which convert assembly code (see [Syntax](#user-content-assembly-language-syntax)) into binary, for the VM.
+VASM is made up of a virtual machine (VM), that interpret binary code (see [Opcodes](#user-content-opcodes)); and an assembler, which convert assembly code (see [Syntax](#user-content-assembly-language-syntax)) into binary, for the VM.
 
 <!-- TODO: link to #Assembly Language Syntax -->
 
@@ -46,15 +46,15 @@ VASM is made up of a virtual machine (VM), that interpret binary code (see [Opco
 | `mul a b`    | `0C 00 01`  |                                                             Multiplies the value stored in `A` by the value stored in `B`, then puts the result in `A` |
 | `div a #$05` | `0D 00 05`  |                                                                                  Divides the value stored in `A` by `$05`, then puts the result in `A` |
 | `div a b`    | `0E 00 01`  |                                                                Divides the value stored in `A` by the value stored in `B`, then puts the result in `A` |
-| `cmp a #$05` | `0F 00 05`  |                                                                  Compares the value stored in `A` with `$05`. See [Compare](#user-content-flags_title) |
-| `cmp a b`    | `10 00 01`  |                                                Compares the value stored in `A` with the value stored in `B`. See [Compare](#user-content-flags_title) |
+| `cmp a #$05` | `0F 00 05`  |                                                                  Compares the value stored in `A` with `$05`. See [Compare](#user-content-flags) |
+| `cmp a b`    | `10 00 01`  |                                                Compares the value stored in `A` with the value stored in `B`. See [Compare](#user-content-flags) |
 | `inc a`      |   `11 00`   |                                                                                                                            Increments the register `A` |
 | `dec b`      |   `12 00`   |                                                                                                                            Decrements the register `A` |
 | `jmp #$05`   |   `13 05`   |                                                                                            Jumps to the byte `$05` of the Program Memory. See [Jump]() |
-| `jeq #$05`   |   `14 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Eq` is set. See [Flags](#user-content-flags_title) and [Jump](#user-content-jump_title) |
-| `jne #$05`   |   `15 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Eq` is not set. See [Flags](#user-content-flags_title) and [Jump](#user-content-jump_title) |
-| `jsm #$05`   |   `16 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Sm` is set. See [Flags](#user-content-flags_title) and [Jump](#user-content-jump_title) |
-| `jns #$05`   |   `17 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Sm` is not set. See [Flags](#user-content-flags_title) and [Jump](#user-content-jump_title) |
+| `jeq #$05`   |   `14 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Eq` is set. See [Flags](#user-content-flags) and [Jump](#user-content-jump) |
+| `jne #$05`   |   `15 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Eq` is not set. See [Flags](#user-content-flags) and [Jump](#user-content-jump) |
+| `jsm #$05`   |   `16 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Sm` is set. See [Flags](#user-content-flags) and [Jump](#user-content-jump) |
+| `jns #$05`   |   `17 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Sm` is not set. See [Flags](#user-content-flags) and [Jump](#user-content-jump) |
 
 *Other instructions coming soon* <!-- TODO after implementing other instructions -->
 
