@@ -11,7 +11,11 @@ VASM is made up of a virtual machine (VM), that interpret binary code (see [Opco
 - Program Memory, which stores the program in binary : 256 bytes
 - Storage Memory (RAM) : 256 bytes
 
-# Flags, compare behavior, etc. <!-- TODO -->
+# Flags
+
+*WIP*
+
+# Comparing
 
 *WIP*
 
@@ -46,15 +50,15 @@ VASM is made up of a virtual machine (VM), that interpret binary code (see [Opco
 | `mul a b`    | `0C 00 01`  |                                                             Multiplies the value stored in `A` by the value stored in `B`, then puts the result in `A` |
 | `div a #$05` | `0D 00 05`  |                                                                                  Divides the value stored in `A` by `$05`, then puts the result in `A` |
 | `div a b`    | `0E 00 01`  |                                                                Divides the value stored in `A` by the value stored in `B`, then puts the result in `A` |
-| `cmp a #$05` | `0F 00 05`  |                                                                  Compares the value stored in `A` with `$05`. See [Compare](#flags-compare-behavior-etc) |
-| `cmp a b`    | `10 00 01`  |                                                Compares the value stored in `A` with the value stored in `B`. See [Compare](#flags-compare-behavior-etc) |
+| `cmp a #$05` | `0F 00 05`  |                                                                  Compares the value stored in `A` with `$05`. See [Compare](#comparing) |
+| `cmp a b`    | `10 00 01`  |                                                Compares the value stored in `A` with the value stored in `B`. See [Compare](#comparing) |
 | `inc a`      |   `11 00`   |                                                                                                                            Increments the register `A` |
 | `dec b`      |   `12 00`   |                                                                                                                            Decrements the register `A` |
 | `jmp #$05`   |   `13 05`   |                                                                                            Jumps to the byte `$05` of the Program Memory. See [Jump](#jumping) |
-| `jeq #$05`   |   `14 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Eq` is set. See [Flags](#flags-compare-behavior-etc) and [Jump](#jumping) |
-| `jne #$05`   |   `15 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Eq` is not set. See [Flags](#flags-compare-behavior-etc) and [Jump](#jumping) |
-| `jsm #$05`   |   `16 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Sm` is set. See [Flags](#flags-compare-behavior-etc) and [Jump](#jumping) |
-| `jns #$05`   |   `17 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Sm` is not set. See [Flags](#flags-compare-behavior-etc) and [Jump](#jumping) |
+| `jeq #$05`   |   `14 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Eq` is set. See [Flags](#flags) and [Jump](#jumping) |
+| `jne #$05`   |   `15 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Eq` is not set. See [Flags](#flags) and [Jump](#jumping) |
+| `jsm #$05`   |   `16 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Sm` is set. See [Flags](#flags) and [Jump](#jumping) |
+| `jns #$05`   |   `17 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Sm` is not set. See [Flags](#flags) and [Jump](#jumping) |
 
 *Other instructions coming soon* <!-- TODO after implementing other instructions -->
 
