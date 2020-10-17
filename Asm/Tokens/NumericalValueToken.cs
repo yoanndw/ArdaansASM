@@ -14,7 +14,7 @@ namespace Asm.Tokens
             this.Value = value;
         }
 
-        public byte GenerateCode()
+        public override byte GenerateCode()
         {
             return this.Value;
         }

@@ -48,6 +48,12 @@ namespace Asm.Tokens
             this.Instruction = instruction;
         }
 
+        // Never used for InstructionToken
+        public override byte GenerateCode()
+        {
+            return 0x00;
+        }
+
         public override string ToString() => $"Token<l.{this.line} c.{this.col}>[Instr: {this.Instruction}]";
 
         public override bool Equals(object obj)

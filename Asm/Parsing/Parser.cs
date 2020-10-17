@@ -12,15 +12,15 @@ namespace Asm.Parsing
         private List<Token> source;
         private int current;
 
-        private List<InstructionNode> nodes;
+        private List<OneOperandNode> nodes;
 
         private Token Current { get => this.source[this.current]; }
 
-        public Parser(List<Token> source)
+        private Parser(List<Token> source)
         {
             this.source = source;
             this.current = 0;
-            this.nodes = new List<InstructionNode>();
+            this.nodes = new List<OneOperandNode>();
         }
 
         /*public List<InstructionNode> GenerateAst()
@@ -40,7 +40,7 @@ namespace Asm.Parsing
 
         private bool IsAtEnd() => this.current >= this.source.Count;
 
-        public static List<InstructionNode> Parse(List<Token> source)
+        public static List<OneOperandNode> Parse(List<Token> source)
         {
             var parser = new Parser(source);
             parser.GenerateAst();
@@ -63,7 +63,7 @@ namespace Asm.Parsing
             }
         }
 
-        private InstructionNode GenerateNode()
+        private OneOperandNode GenerateNode()
         {
             Instructions instruction;
             if (this.ExpectInstruction(out instruction))

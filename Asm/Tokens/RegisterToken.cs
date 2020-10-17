@@ -34,7 +34,7 @@ namespace Asm.Tokens
             this.Register = register;
         }
 
-        public byte GenerateCode()
+        public override byte GenerateCode()
         {
             return (byte)this.Register;
         }

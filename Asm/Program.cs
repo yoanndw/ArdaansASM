@@ -14,7 +14,13 @@ namespace Asm
             string program = @"mov a #$5";
             var tokens = Lexer.Tokenize(program);
 
-            Parser.Parse(tokens).ForEach(Console.WriteLine);
+            var ast = Parser.Parse(tokens);
+            byte[] bin = CodeGenerator.GenerateBinaryCode(ast);
+
+            var vm = new VirtualMachine();
+            vm.LoadProgram(bin);
+            vm.Run();
+            vm.PrintState();
         }
     }
 }
