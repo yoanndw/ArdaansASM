@@ -2,7 +2,7 @@
 
 **Note of October 17: The work is still in progress. The first version will be available soon.**
 
-VASM is made up of a virtual machine (VM), that interpret binary code (see [Opcodes](#opcodes)); and an assembler, which convert assembly code (see [Syntax](#user-content-assembly-language-syntax)) into binary, for the VM.
+VASM is made up of a virtual machine (VM), that interpret binary code (see [Opcodes](#opcodes)); and an assembler, which convert assembly code (see [Syntax](#assembly-language-syntax)) into binary, for the VM.
 
 <!-- TODO: link to #Assembly Language Syntax -->
 
@@ -11,15 +11,15 @@ VASM is made up of a virtual machine (VM), that interpret binary code (see [Opco
 - Program Memory, which stores the program in binary : 256 bytes
 - Storage Memory (RAM) : 256 bytes
 
-<h1 name="flags_title">Flags, compare behavior, etc. <!-- TODO --></h1>
+# Flags, compare behavior, etc. <!-- TODO -->
 
 *WIP*
 
-<h1 name="jump_title">Jumping</h1>
+# Jumping
 
 *WIP*
 
-<h1 name="opcodes_title">Opcodes</h1>
+# Opcodes
 
 ## Registers
 | Register | Binary Code |
@@ -50,15 +50,15 @@ VASM is made up of a virtual machine (VM), that interpret binary code (see [Opco
 | `cmp a b`    | `10 00 01`  |                                                Compares the value stored in `A` with the value stored in `B`. See [Compare](#flags-compare-behavior-etc) |
 | `inc a`      |   `11 00`   |                                                                                                                            Increments the register `A` |
 | `dec b`      |   `12 00`   |                                                                                                                            Decrements the register `A` |
-| `jmp #$05`   |   `13 05`   |                                                                                            Jumps to the byte `$05` of the Program Memory. See [Jump](#flags-compare-behavior-etc) |
-| `jeq #$05`   |   `14 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Eq` is set. See [Flags](#flags-compare-behavior-etc) and [Jump](#flags-compare-behavior-etc) |
-| `jne #$05`   |   `15 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Eq` is not set. See [Flags](#flags-compare-behavior-etc) and [Jump](#flags-compare-behavior-etc) |
-| `jsm #$05`   |   `16 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Sm` is set. See [Flags](#flags-compare-behavior-etc) and [Jump](#flags-compare-behavior-etc) |
-| `jns #$05`   |   `17 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Sm` is not set. See [Flags](#flags-compare-behavior-etc) and [Jump](#flags-compare-behavior-etc) |
+| `jmp #$05`   |   `13 05`   |                                                                                            Jumps to the byte `$05` of the Program Memory. See [Jump](#jumping) |
+| `jeq #$05`   |   `14 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Eq` is set. See [Flags](#flags-compare-behavior-etc) and [Jump](#jumping) |
+| `jne #$05`   |   `15 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Eq` is not set. See [Flags](#flags-compare-behavior-etc) and [Jump](#jumping) |
+| `jsm #$05`   |   `16 05`   |     Jumps to the byte `$05` of the Program Memory if the flag `Sm` is set. See [Flags](#flags-compare-behavior-etc) and [Jump](#jumping) |
+| `jns #$05`   |   `17 05`   | Jumps to the byte `$05` of the Program Memory if the flag `Sm` is not set. See [Flags](#flags-compare-behavior-etc) and [Jump](#jumping) |
 
 *Other instructions coming soon* <!-- TODO after implementing other instructions -->
 
-<h1 class="syntax_title">Assembly Language Syntax</h1>
+# Assembly Language Syntax
 
 ## General
 An instrcution is an instruction keyword (`mov`, `add`, `sub`, ...), followed by one or two operands (register, number, ...), which are separated by spaces.
