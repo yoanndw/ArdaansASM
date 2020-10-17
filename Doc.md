@@ -2,7 +2,7 @@
 
 **Note of October 17: The work is still in progress. The first version will be available soon.**
 
-VASM is made up of a virtual machine (VM), that interpret binary code (see [Opcodes](#opcodes_title)); and an assembler, which convert assembly code (see [Syntax](#syntax_title)) into binary, for the VM.
+VASM is made up of a virtual machine (VM), that interpret binary code (see [Opcodes](#opcodes_title)); and an assembler, which convert assembly code (see [Syntax](#user-content-assembly-language-syntax)) into binary, for the VM.
 <!-- TODO: link to #Assembly Language Syntax -->
 
 # VM characteristics
