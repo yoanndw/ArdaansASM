@@ -257,6 +257,9 @@ namespace Asm
             if (this.errorsCount != 0)
             {
                 Console.WriteLine(this.errorsCount + " errors found.");
+                Console.WriteLine("---");
+
+                throw new SyntaxErrorsException();
             }
         }
 

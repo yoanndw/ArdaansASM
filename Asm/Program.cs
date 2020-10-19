@@ -32,11 +32,18 @@ namespace Asm
 
             string program = ReadAsmSource(path);
 
-            byte[] bin = Assembler.Assemble(program);
+            try
+            {
+                byte[] bin = Assembler.Assemble(program);
 
-            var vm = new VirtualMachine(bin);
-            vm.Run();
-            vm.PrintState();
+                var vm = new VirtualMachine(bin);
+                vm.Run();
+                vm.PrintState();
+            }
+            catch (SyntaxErrorsException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
