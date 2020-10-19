@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Asm.Assembly;
@@ -9,9 +10,27 @@ namespace Asm
 {
     class Program
     {
+        static string ReadAsmSource(string path)
+        {
+            return File.ReadAllText(path);
+        }
+
         static void Main(string[] args)
         {
-            string program = @"mov a #$5";
+            if (args.Length < 1)
+            {
+                Console.WriteLine("[ERROR] Expected file name");
+                return;
+            }
+
+            string path = args[0];
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("[ERROR] Couldn't find file '{0}'", path);
+                return;
+            }
+
+            string program = ReadAsmSource(path);
 
             byte[] bin = Assembler.Assemble(program);
 
