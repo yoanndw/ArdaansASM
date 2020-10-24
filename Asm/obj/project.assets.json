@@ -8,30 +8,24 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\yoann\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/home/yoanndw/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
+      "projectUniqueName": "/shared/Code/C#/Asm/Asm/Asm.csproj",
       "projectName": "Asm",
-      "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
-      "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-      "outputPath": "S:\\Code\\C#\\Asm\\Asm\\obj\\",
+      "projectPath": "/shared/Code/C#/Asm/Asm/Asm.csproj",
+      "packagesPath": "/home/yoanndw/.nuget/packages/",
+      "outputPath": "/shared/Code/C#/Asm/Asm/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\yoann\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/yoanndw/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -57,12 +51,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.8, 3.1.8]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.108/RuntimeIdentifierGraph.json"
       }
     }
   }

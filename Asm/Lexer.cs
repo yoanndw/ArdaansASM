@@ -11,8 +11,7 @@ namespace Asm
 {
     public class Lexer
     {
-        private string source;
-        private string[] splittedLines;
+        private Input input;
         private int current;
 
         private int line;
@@ -26,8 +25,8 @@ namespace Asm
 
         private Lexer(string source)
         {
-            this.source = source.Replace("\r", "").ToLower();
-            this.splittedLines = this.source.Split('\n');
+            this.input = new Input(source);
+
             this.current = 0;
 
             this.line = 1;
@@ -43,12 +42,12 @@ namespace Asm
         #region Reading
         private string GetCurrentLine()
         {
-            return this.splittedLines[this.line - 1];
+            return this.input.GetLine(this.line);
         }
 
         private bool IsAtEnd()
         {
-            return this.current >= this.source.Length;
+            return this.current >= this.input.Length;
         }
 
         private char Advance()
@@ -56,7 +55,7 @@ namespace Asm
             this.col++;
             this.current++;
 
-            return this.source.ElementAt(this.current - 1);
+            return this.input.GetChar(this.current - 1);
         }
 
         private void NewLine()
@@ -67,7 +66,7 @@ namespace Asm
 
         private char Peek()
         {
-            return this.source.ElementAt(this.current);
+            return this.input.GetChar(this.current);
         }
 
         private bool IsLetter(char c)

@@ -1,0 +1,13 @@
+S:\Code\C#\Asm\Asm\bin\Release\netcoreapp3.1\Asm.exe
+S:\Code\C#\Asm\Asm\bin\Release\netcoreapp3.1\Asm.deps.json
+S:\Code\C#\Asm\Asm\bin\Release\netcoreapp3.1\Asm.runtimeconfig.json
+S:\Code\C#\Asm\Asm\bin\Release\netcoreapp3.1\Asm.runtimeconfig.dev.json
+S:\Code\C#\Asm\Asm\bin\Release\netcoreapp3.1\Asm.dll
+S:\Code\C#\Asm\Asm\bin\Release\netcoreapp3.1\Asm.pdb
+S:\Code\C#\Asm\Asm\obj\Release\netcoreapp3.1\Asm.csprojAssemblyReference.cache
+S:\Code\C#\Asm\Asm\obj\Release\netcoreapp3.1\Asm.AssemblyInfoInputs.cache
+S:\Code\C#\Asm\Asm\obj\Release\netcoreapp3.1\Asm.AssemblyInfo.cs
+S:\Code\C#\Asm\Asm\obj\Release\netcoreapp3.1\Asm.csproj.CoreCompileInputs.cache
+S:\Code\C#\Asm\Asm\obj\Release\netcoreapp3.1\Asm.dll
+S:\Code\C#\Asm\Asm\obj\Release\netcoreapp3.1\Asm.pdb
+S:\Code\C#\Asm\Asm\obj\Release\netcoreapp3.1\Asm.genruntimeconfig.cache
