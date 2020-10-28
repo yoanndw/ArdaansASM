@@ -56,6 +56,8 @@ namespace Asm.Tokens
 
         public override string ToString() => $"Token<l.{this.Line} c.{this.Col}>[Instr: {this.Instruction}]";
 
+        public override string DocRepresentation() => this.Instruction.ToString().ToLower();
+
         public override bool Equals(object obj)
         {
             var o = obj as InstructionToken;

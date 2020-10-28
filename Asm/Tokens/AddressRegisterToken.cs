@@ -13,6 +13,8 @@ namespace Asm.Tokens
 
         public override string ToString() => $"Token<l.{this.Line} c.{this.Col}>[AddrReg: {this.Register}]";
 
+        public override string DocRepresentation() => "&R";
+
         public override bool Equals(object obj)
         {
             return base.Equals(obj);

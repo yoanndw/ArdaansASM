@@ -41,6 +41,8 @@ namespace Asm.Tokens
 
         public override string ToString() => $"Token<l.{this.Line} c.{this.Col}>[Reg: {this.Register}]";
 
+        public override string DocRepresentation() => "R";
+
         public override bool Equals(object obj)
         {
             var o = obj as RegisterToken;

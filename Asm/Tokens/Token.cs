@@ -19,6 +19,8 @@ namespace Asm.Tokens
 
         public abstract byte GenerateCode();
 
+        public abstract string DocRepresentation();
+
         public abstract override string ToString();
 
         public override bool Equals(object obj)
