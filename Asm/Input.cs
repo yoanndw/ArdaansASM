@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Asm
@@ -28,5 +29,21 @@ namespace Asm
         /// <param name="line">Number of the line</param>
         /// <returns>The specified line</returns>
         public string GetLine(int line) => this.lines[line - 1];
+
+        /// <summary>
+        /// Emphasize a specified character
+        /// </summary>
+        /// <param name="line">Emphasized line's number</param>
+        /// <param name="col">Emphasized character's position</param>
+        /// <returns>The line, and an emphase onto the specified character</returns>
+        public string EmphasizeChar(int line, int col)
+        {
+            var sb = new StringBuilder(this.GetLine(line) + "\n");
+            string spaces = string.Concat(Enumerable.Repeat(" ", col));
+
+            sb.Append(spaces + "^");
+
+            return sb.ToString();
+        }
     }
 }

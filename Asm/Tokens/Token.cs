@@ -8,13 +8,13 @@ namespace Asm.Tokens
 {
     public abstract class Token
     {
-        protected int line;
-        protected int col;
+        public int Line { get;  protected set; }
+        public int Col { get; protected set; }
 
         public Token(int line, int col)
         {
-            this.line = line;
-            this.col = col;
+            this.Line = line;
+            this.Col = col;
         }
 
         public abstract byte GenerateCode();
@@ -27,7 +27,7 @@ namespace Asm.Tokens
             if (o == null)
                 return false;
 
-            return this.line == o.line && this.col == o.col;
+            return this.Line == o.Line && this.Col == o.Col;
         }
     }
 }

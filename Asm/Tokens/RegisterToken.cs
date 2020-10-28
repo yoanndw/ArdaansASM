@@ -39,7 +39,7 @@ namespace Asm.Tokens
             return (byte)this.Register;
         }
 
-        public override string ToString() => $"Token<l.{this.line} c.{this.col}>[Reg: {this.Register}]";
+        public override string ToString() => $"Token<l.{this.Line} c.{this.Col}>[Reg: {this.Register}]";
 
         public override bool Equals(object obj)
         {

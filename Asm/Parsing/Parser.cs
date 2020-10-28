@@ -8,40 +8,50 @@ namespace Asm.Parsing
 {
     public class Parser
     {
+        private Input rawInput;
+
         private List<Token> source;
         private int current;
 
         private List<OneOperandNode> nodes;
 
-        private Token Current { get => this.source[this.current]; }
+        private int errorsCount;
 
-        private Parser(List<Token> source)
+        private Parser(Input rawInput, List<Token> source)
         {
+            this.rawInput = rawInput;
             this.source = source;
             this.current = 0;
             this.nodes = new List<OneOperandNode>();
+
+            this.errorsCount = 0;
         }
 
-        /*public List<InstructionNode> GenerateAst()
+        private void LogError(ParseError err)
         {
-            var ast = new List<InstructionNode>();
+            this.errorsCount++;
+            Console.WriteLine(err);
+        }
 
-            while (!this.IsAtEnd())
-            {
-                var tok = this.Advance();
-                ast.Add(this.GenerateNode(tok));
-            }
+        private void LogExpectedOneOperandError(Token token)
+        {
+            var err = new ExpectedOneOperandError(this.rawInput, token);
+            this.LogError(err);
+        }
 
-            return ast;
-        }*/
+        private void LogExpectedTwoOperandsError(Token token)
+        {
+            var err = new ExpectedTwoOperandsError(this.rawInput, token);
+            this.LogError(err);
+        }
 
         private Token Advance() => this.source[this.current++];
 
         private bool IsAtEnd() => this.current >= this.source.Count;
 
-        public static List<OneOperandNode> Parse(List<Token> source)
+        public static List<OneOperandNode> Parse(Input input, List<Token> source)
         {
-            var parser = new Parser(source);
+            var parser = new Parser(input, source);
             parser.GenerateAst();
             return parser.nodes;
         }
@@ -50,23 +60,30 @@ namespace Asm.Parsing
         {
             while (!this.IsAtEnd())
             {
-                var currentInstruction = this.GenerateNode();
-                if (currentInstruction != null)
+                OneOperandNode currentInstruction;
+                if (this.GenerateNode(out currentInstruction))
                 {
                     this.nodes.Add(currentInstruction);
                 }
-                else
-                {
-                    break;
-                }
+            }
+
+            if (this.errorsCount != 0)
+            {
+                Console.WriteLine(this.errorsCount + " errors found.");
+                Console.WriteLine("---");
+
+                throw new ParseErrorsException();
             }
         }
 
-        private OneOperandNode GenerateNode()
+        private bool GenerateNode(out OneOperandNode node)
         {
-            Instructions instruction;
-            if (this.ExpectInstruction(out instruction))
+            node = null;
+
+            InstructionToken instructionToken;
+            if (this.ExpectInstructionToken(out instructionToken))
             {
+                Instructions instruction = instructionToken.Instruction;
                 switch (instruction)
                 {
                     case Instructions.Mov:
@@ -75,13 +92,15 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                return new MovInstruction(operand1, operand2);
+                                node = new MovInstruction(operand1, operand2);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedTwoOperandsError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Add:
                         {
@@ -89,13 +108,15 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                return new AddInstruction(operand1, operand2);
+                                node = new AddInstruction(operand1, operand2);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedTwoOperandsError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Sub:
                         {
@@ -103,13 +124,15 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                return new SubInstruction(operand1, operand2);
+                                node = new SubInstruction(operand1, operand2);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedTwoOperandsError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Mul:
                         {
@@ -117,13 +140,15 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                return new MulInstruction(operand1, operand2);
+                                node = new MulInstruction(operand1, operand2);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedTwoOperandsError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Div:
                         {
@@ -131,13 +156,15 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                return new DivInstruction(operand1, operand2);
+                                node = new DivInstruction(operand1, operand2);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedTwoOperandsError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Cmp:
                         {
@@ -145,117 +172,129 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                return new CmpInstruction(operand1, operand2);
+                                node = new CmpInstruction(operand1, operand2);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedTwoOperandsError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Inc:
                         {
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                return new IncInstruction(operand);
+                                node = new IncInstruction(operand);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedOneOperandError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Dec:
                         {
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                return new DecInstruction(operand);
+                                node = new DecInstruction(operand);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedOneOperandError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Jmp:
                         {
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                return new JmpInstruction(operand);
+                                node = new JmpInstruction(operand);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedOneOperandError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Jeq:
                         {
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                return new JeqInstruction(operand);
+                                node = new JeqInstruction(operand);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedOneOperandError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Jne:
                         {
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                return new JneInstruction(operand);
+                                node = new JneInstruction(operand);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedOneOperandError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Jsm:
                         {
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                return new JsmInstruction(operand);
+                                node = new JsmInstruction(operand);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedOneOperandError(instructionToken);
+                                return false;
                             }
                         }
+                        break;
 
                     case Instructions.Jns:
                         {
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                return new JnsInstruction(operand);
+                                node = new JnsInstruction(operand);
                             }
                             else
                             {
-                                return null;
+                                this.LogExpectedOneOperandError(instructionToken);
+                                return false;
                             }
                         }
-
-                    default:
-                        return null;
+                        break;
                 }
             }
 
-            return null;
+            return true;
         }
 
-        public bool ExpectInstruction(out Instructions instructionType)
+        public bool ExpectInstructionToken(out InstructionToken instructionToken)
         {
-            instructionType = Instructions.Add;
-
+            instructionToken = null;
             if (this.IsAtEnd())
             {
                 return false;
@@ -267,7 +306,7 @@ namespace Asm.Parsing
                 return false;
             }
 
-            instructionType = token.Instruction;
+            instructionToken = token;
             return true;
         }
 

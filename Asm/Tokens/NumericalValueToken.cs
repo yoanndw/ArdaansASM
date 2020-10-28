@@ -19,7 +19,7 @@ namespace Asm.Tokens
             return this.Value;
         }
 
-        public override string ToString() => $"Token<l.{this.line} c.{this.col}>[Num: {this.Value:X2}]";
+        public override string ToString() => $"Token<l.{this.Line} c.{this.Col}>[Num: {this.Value:X2}]";
 
         public override bool Equals(object obj)
         {
