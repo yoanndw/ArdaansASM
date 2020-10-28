@@ -11,7 +11,7 @@ namespace Asm.Tokens
         {
         }
 
-        public override string ToString() => $"Token<l.{this.line} c.{this.col}>[AddrReg: {this.Register}]";
+        public override string ToString() => $"Token<l.{this.Line} c.{this.Col}>[AddrReg: {this.Register}]";
 
         public override bool Equals(object obj)
         {

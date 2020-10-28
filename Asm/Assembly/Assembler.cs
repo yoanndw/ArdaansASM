@@ -26,8 +26,11 @@ namespace Asm.Assembly
 
         private void Assemble()
         {
-            var tokens = Lexer.Tokenize(this.program);
-            var ast = Parser.Parse(tokens);
+            var input = new Input(this.program);
+
+            var tokens = Lexer.Tokenize(input);
+            var ast = Parser.Parse(input, tokens);
+
             this.binaryCode = CodeGenerator.GenerateBinaryCode(ast);
         }
     }

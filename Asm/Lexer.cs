@@ -23,9 +23,9 @@ namespace Asm
         private List<Token> tokens;
         private int errorsCount;
 
-        private Lexer(string source)
+        private Lexer(Input input)
         {
-            this.input = new Input(source);
+            this.input = input;
 
             this.current = 0;
 
@@ -171,9 +171,9 @@ namespace Asm
             this.LogError(err);
         }
 
-        public static List<Token> Tokenize(string source)
+        public static List<Token> Tokenize(Input input)
         {
-            var lex = new Lexer(source);
+            var lex = new Lexer(input);
             lex.Tokenize();
             return lex.tokens;
         }
