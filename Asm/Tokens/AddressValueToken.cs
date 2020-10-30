@@ -13,7 +13,7 @@ namespace Asm.Tokens
 
         public override string ToString() => $"Token<l.{this.Line} c.{this.Col}>[Addr: {this.Value:X2}]";
 
-        public override string DocRepresentation() => "A";
+        public override string DocRepresentation() => "&V";
 
         public override bool Equals(object obj)
         {
