@@ -31,8 +31,17 @@ There are 3 cases:
 - `<LHS>` >= `<RHS>`: both `Eq` and `Sm` are set to *False*
 
 # Jumping
+In Ardaans v0.1, the only way to provide jumping is using *numbers*.
+In fact, `jmp #$05` will jump to the *offset* `$05`.
 
-*WIP*
+There are also *conditional jumps*. These are specific jump instructions which jump according to flags values.
+
+| Instruction |                          Explanation |
+| ----------- | -----------------------------------: |
+| `jeq`       |  Jumps if flag `Eq` is set to *True* |
+| `jne`       | Jumps if flag `Eq` is set to *False* |
+| `jsm`       |  Jumps if flag `Sm` is set to *True* |
+| `jns`       | Jumps if flag `Sm` is set to *False* |
 
 # Opcodes
 
