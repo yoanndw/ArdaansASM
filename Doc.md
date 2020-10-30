@@ -17,7 +17,18 @@ There are only two flags on v0.1:
 - Sm, for **Sm**aller
 
 # Comparing
+Comparing is done between one register and a *number*, or between two registers.
 
+We can compare with the `cmp` instruction:
+```x86asm
+cmp <LHS> <RHS>
+```
+Where `<LHS>` is the left operand, and `<RHS>`, the right operand.
+
+There are 3 cases:
+- `<LHS>` < `<RHS>`: the `Sm` flag is set to *True*
+- `<LHS>` = `<RHS>`: the `Eq` flag is set to *True*
+- `<LHS>` >= `<RHS>`: both `Eq` and `Sm` are set to *False*
 
 # Jumping
 
