@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 using Asm.Parsing;
 using Asm.Parsing.Ast;
@@ -24,6 +25,13 @@ namespace Asm.Assembly
             asm.Assemble();
 
             return asm.binaryCode;
+        }
+
+        public static byte[] AssembleFile(string path)
+        {
+            string program = File.ReadAllText(path);
+            
+            return Assemble(program);
         }
 
         private void Assemble()
