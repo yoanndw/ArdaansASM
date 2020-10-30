@@ -9,8 +9,8 @@ namespace Asm.Parsing.Ast
 {
     public class DecInstruction : OneOperandNode
     {
-        public DecInstruction(Token operand1)
-            : base(operand1)
+        public DecInstruction(Token instructionToken, Token operand1)
+            : base(instructionToken, operand1)
         {
         }
 

@@ -9,8 +9,8 @@ namespace Asm.Parsing.Ast
 {
     public class JneInstruction : OneOperandNode
     {
-        public JneInstruction(Token operand1)
-            : base(operand1)
+        public JneInstruction(Token instructionToken, Token operand1)
+            : base(instructionToken, operand1)
         {
         }
 

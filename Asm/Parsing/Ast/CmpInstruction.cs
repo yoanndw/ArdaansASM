@@ -9,8 +9,8 @@ namespace Asm.Parsing.Ast
 {
     public class CmpInstruction : TwoOperandsNode
     {
-        public CmpInstruction(Token operand1, Token operand2)
-            : base(operand1, operand2)
+        public CmpInstruction(Token instructionToken, Token operand1, Token operand2)
+            : base(instructionToken, operand1, operand2)
         {
         }
 

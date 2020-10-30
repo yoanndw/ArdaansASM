@@ -9,8 +9,8 @@ namespace Asm.Parsing.Ast
 {
     public class AddInstruction : TwoOperandsNode
     {
-        public AddInstruction(Token operand1, Token operand2)
-            : base(operand1, operand2)
+        public AddInstruction(Token instructionToken, Token operand1, Token operand2)
+            : base(instructionToken, operand1, operand2)
         {
         }
 

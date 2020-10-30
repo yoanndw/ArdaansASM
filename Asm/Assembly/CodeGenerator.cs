@@ -160,13 +160,16 @@ namespace Asm.Assembly
         }
         #endregion
 
+        private Input input;
         private Ast ast;
+
         private byte[] binaryCode;
 
         private int errorsCount;
 
-        private CodeGenerator(Ast ast)
+        private CodeGenerator(Input input, Ast ast)
         {
+            this.input = input;
             this.ast = ast;
 
             this.errorsCount = 0;
@@ -177,9 +180,9 @@ namespace Asm.Assembly
             this.errorsCount++;
         }
 
-        public static byte[] GenerateBinaryCode(Ast ast)
+        public static byte[] GenerateBinaryCode(Input input, Ast ast)
         {
-            var codeGenerator = new CodeGenerator(ast);
+            var codeGenerator = new CodeGenerator(input, ast);
             codeGenerator.GenerateBinaryCode();
 
             return codeGenerator.binaryCode;
