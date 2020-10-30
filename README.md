@@ -1,7 +1,9 @@
-# VASM
+# Ardaans ASM
 
-**Note of October 17: The work is still in progress. The first version will be available soon.**
+**DISCLAIMER: This project is still in development. All you'll see might change in the future.**
 
-VASM is a small assembly language, that I'm making to learn more on language design, and also for fun.
+Ardaans is a small assembly language, that I'm making to learn more on language design, and also for fun.
+
+Ardaans is still in Beta (version 0.1).
 
 [Learn more](Doc.md).
