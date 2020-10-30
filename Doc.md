@@ -30,6 +30,47 @@ There are 3 cases:
 - `<LHS>` = `<RHS>`: the `Eq` flag is set to *True*
 - `<LHS>` >= `<RHS>`: both `Eq` and `Sm` are set to *False*
 
+# Offset
+The VM runs programs with a specific register: the *instruction pointer*. The instruction pointer indexes the current instruction byte in the Program Memory.
+
+For example, if the assembly code is
+```x86asm
+mov a #$05
+mov b #$0A
+
+add a b
+```
+
+So, the binary code is
+```
+01 00 05
+01 01 0A
+
+08 00 01
+```
+
+The instruction pointer first points to address `$00` of the Program Memory, it executes the first `mov` instruction.
+Then it points to `$03`. And finally, points to `$06`, for the `add` instruction.
+
+These addresses are called *offsets*.
+
+So:
+- `mov a #$05` is at offset `$00`
+- `mov b #$0A` is at offset `$03`
+- `add a b` is at offset `$06`
+
+Therefore, the previous machine code can be written
+```
+[00]   01 00 05
+[03]   01 01 0A
+[06]   08 00 01
+```
+to simplify. Where the value between the brackets is the offset of the instruction.
+
+Now, if we want to go to a specified instruction, we just need to change the *instruction pointer* value. That's in what consists jumping.
+
+For example, `jmp #$06` will *go to* offset `$06`, so it will execute (in the previous code) `add a b`.
+
 # Jumping
 In Ardaans v0.1, the only way to provide jumping is using *numbers*.
 In fact, `jmp #$05` will jump to the *offset* `$05`.
