@@ -121,8 +121,6 @@ There are also *conditional jumps*. These are specific jump instructions which j
 | `jsm #$05`   |   `16 05`   |  Jumps to offset `$05` of the Program Memory if the flag `Sm` is set to *True*. See [Flags](#flags) and [Jump](#jumping) |
 | `jns #$05`   |   `17 05`   | Jumps to offset `$05` of the Program Memory if the flag `Sm` is set to *False*. See [Flags](#flags) and [Jump](#jumping) |
 
-*Other instructions coming soon* <!-- TODO after implementing other instructions -->
-
 # Assembly Language Syntax
 
 ## General
