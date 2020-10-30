@@ -9,12 +9,6 @@ namespace Asm
         {
             Equals = 0,
             Smaller = 1,
-
-            StackUnderflow = 2,
-            StackOverflow = 3,
-
-            NumberUnderflow = 4,
-            NumberOverflow = 5
         }
 
         private byte[] registers;
@@ -35,7 +29,7 @@ namespace Asm
         {
             this.registers = new byte[] { 0x00, 0x00, 0x00, 0x00 };
 
-            this.flags = new BitArray(6);
+            this.flags = new BitArray(2);
 
             this.progMemory = new byte[256]; // 256
             this.storageMemory = new byte[256];
@@ -95,10 +89,6 @@ namespace Asm
             Console.WriteLine("Flags");
             Console.WriteLine("Eq: {0}", this.GetFlag(Flags.Equals));
             Console.WriteLine("Sm: {0}", this.GetFlag(Flags.Smaller));
-            Console.WriteLine("SU: {0}", this.GetFlag(Flags.StackUnderflow));
-            Console.WriteLine("SO: {0}", this.GetFlag(Flags.StackOverflow));
-            Console.WriteLine("NU: {0}", this.GetFlag(Flags.NumberUnderflow));
-            Console.WriteLine("NO: {0}", this.GetFlag(Flags.NumberOverflow));
             Console.WriteLine("------------");
         }
 
