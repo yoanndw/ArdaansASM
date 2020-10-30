@@ -23,7 +23,7 @@ namespace Asm
 
             try
             {
-                var code = CodeGenerator.GenerateBinaryCode(ast);
+                var code = CodeGenerator.GenerateBinaryCode(input, ast);
             }
             catch (CodeGenErrorsException e)
             {

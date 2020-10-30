@@ -160,6 +160,7 @@ namespace Asm.Assembly
         }
         #endregion
 
+        // INSTANCE //
         private Input input;
         private Ast ast;
 
@@ -175,9 +176,15 @@ namespace Asm.Assembly
             this.errorsCount = 0;
         }
 
-        public void LogError()
+        private void LogError(WrongPatternError err)
         {
+            Console.WriteLine(err);
             this.errorsCount++;
+        }
+
+        public void LogError(OneOperandNode instruction)
+        {
+            this.LogError(new WrongPatternError(instruction));
         }
 
         public static byte[] GenerateBinaryCode(Input input, Ast ast)

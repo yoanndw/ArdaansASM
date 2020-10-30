@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Asm.Tokens
+﻿namespace Asm.Tokens
 {
     public class AddressValueToken : NumericalValueToken
     {

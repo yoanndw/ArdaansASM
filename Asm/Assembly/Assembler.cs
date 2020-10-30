@@ -31,7 +31,7 @@ namespace Asm.Assembly
             var tokens = Lexer.Tokenize(input);
             var ast = Parser.Parse(input, tokens);
 
-            this.binaryCode = CodeGenerator.GenerateBinaryCode(ast);
+            this.binaryCode = CodeGenerator.GenerateBinaryCode(input, ast);
         }
     }
 }

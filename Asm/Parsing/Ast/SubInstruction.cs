@@ -9,12 +9,12 @@ namespace Asm.Parsing.Ast
 {
     public class SubInstruction : TwoOperandsNode
     {
-        public SubInstruction(Token instructionToken, Token operand1, Token operand2)
-            : base(instructionToken, operand1, operand2)
+        public SubInstruction(Input input, Token instructionToken, Token operand1, Token operand2)
+            : base(input, instructionToken, operand1, operand2)
         {
         }
 
-        public override bool GenerateCode(Action logErrorFunc, out byte[] code)
+        public override bool GenerateCode(Action<OneOperandNode> logErrorFunc, out byte[] code)
         {
             code = null;
 
@@ -30,7 +30,7 @@ namespace Asm.Parsing.Ast
             }
             else
             {
-                logErrorFunc();
+                logErrorFunc(this);
                 return false;
             }
         }

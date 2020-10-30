@@ -92,7 +92,7 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                node = new MovInstruction(operand1, operand2);
+                                node = new MovInstruction(this.rawInput, instructionToken, operand1, operand2);
                             }
                             else
                             {
@@ -108,7 +108,7 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                node = new AddInstruction(operand1, operand2);
+                                node = new AddInstruction(this.rawInput, instructionToken, operand1, operand2);
                             }
                             else
                             {
@@ -124,7 +124,7 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                node = new SubInstruction(operand1, operand2);
+                                node = new SubInstruction(this.rawInput, instructionToken, operand1, operand2);
                             }
                             else
                             {
@@ -140,7 +140,7 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                node = new MulInstruction(operand1, operand2);
+                                node = new MulInstruction(this.rawInput, instructionToken, operand1, operand2);
                             }
                             else
                             {
@@ -156,7 +156,7 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                node = new DivInstruction(operand1, operand2);
+                                node = new DivInstruction(this.rawInput, instructionToken, operand1, operand2);
                             }
                             else
                             {
@@ -172,7 +172,7 @@ namespace Asm.Parsing
                             Token operand2;
                             if (this.ExpectTwoOperands(out operand1, out operand2))
                             {
-                                node = new CmpInstruction(operand1, operand2);
+                                node = new CmpInstruction(this.rawInput, instructionToken, operand1, operand2);
                             }
                             else
                             {
@@ -187,7 +187,7 @@ namespace Asm.Parsing
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                node = new IncInstruction(operand);
+                                node = new IncInstruction(this.rawInput, instructionToken, operand);
                             }
                             else
                             {
@@ -202,7 +202,7 @@ namespace Asm.Parsing
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                node = new DecInstruction(operand);
+                                node = new DecInstruction(this.rawInput, instructionToken, operand);
                             }
                             else
                             {
@@ -217,7 +217,7 @@ namespace Asm.Parsing
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                node = new JmpInstruction(operand);
+                                node = new JmpInstruction(this.rawInput, instructionToken, operand);
                             }
                             else
                             {
@@ -232,7 +232,7 @@ namespace Asm.Parsing
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                node = new JeqInstruction(operand);
+                                node = new JeqInstruction(this.rawInput, instructionToken, operand);
                             }
                             else
                             {
@@ -247,7 +247,7 @@ namespace Asm.Parsing
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                node = new JneInstruction(operand);
+                                node = new JneInstruction(this.rawInput, instructionToken, operand);
                             }
                             else
                             {
@@ -262,7 +262,7 @@ namespace Asm.Parsing
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                node = new JsmInstruction(operand);
+                                node = new JsmInstruction(this.rawInput, instructionToken, operand);
                             }
                             else
                             {
@@ -277,7 +277,7 @@ namespace Asm.Parsing
                             Token operand;
                             if (this.ExpectOneOperand(out operand))
                             {
-                                node = new JnsInstruction(operand);
+                                node = new JnsInstruction(this.rawInput, instructionToken, operand);
                             }
                             else
                             {

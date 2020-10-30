@@ -9,12 +9,12 @@ namespace Asm.Parsing.Ast
 {
     public class JsmInstruction : OneOperandNode
     {
-        public JsmInstruction(Token instructionToken, Token operand1)
-            : base(instructionToken, operand1)
+        public JsmInstruction(Input input, Token instructionToken, Token operand1)
+            : base(input, instructionToken, operand1)
         {
         }
 
-        public override bool GenerateCode(Action logErrorFunc, out byte[] code)
+        public override bool GenerateCode(Action<OneOperandNode> logErrorFunc, out byte[] code)
         {
             code = null;
 
@@ -29,7 +29,7 @@ namespace Asm.Parsing.Ast
             }
             else
             {
-                logErrorFunc();
+                logErrorFunc(this);
                 return false;
             }
         }

@@ -9,12 +9,12 @@ namespace Asm.Parsing.Ast
 {
     public class IncInstruction : OneOperandNode
     {
-        public IncInstruction(Token instructionToken, Token operand1)
-            : base(instructionToken, operand1)
+        public IncInstruction(Input input, Token instructionToken, Token operand1)
+            : base(input, instructionToken, operand1)
         {
         }
 
-        public override bool GenerateCode(Action logErrorFunc, out byte[] code)
+        public override bool GenerateCode(Action<OneOperandNode> logErrorFunc, out byte[] code)
         {
             code = null;
 
@@ -29,7 +29,7 @@ namespace Asm.Parsing.Ast
             }
             else
             {
-                logErrorFunc();
+                logErrorFunc(this);
                 return false;
             }
         }
