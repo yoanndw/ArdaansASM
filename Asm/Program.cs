@@ -14,20 +14,13 @@ namespace Asm
         {
             string program = @"inc #$5 mov #$0A a";
 
-            var input = new Input(program);
-
-            var tokens = Lexer.Tokenize(input);
-
-            var ast = Parser.Parse(input, tokens);
-            //ast.ForEach(Console.WriteLine);
-
             try
             {
-                var code = CodeGenerator.GenerateBinaryCode(input, ast);
+                byte[] code = Assembler.Assemble(program);
             }
-            catch (CodeGenErrorsException e)
+            catch (FailedAssemblingException e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
             }
         }
     }

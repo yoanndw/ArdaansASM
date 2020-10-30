@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 
 using Asm.Parsing;
+using Asm.Parsing.Ast;
+using Asm.Tokens;
 
 namespace Asm.Assembly
 {
@@ -28,10 +30,37 @@ namespace Asm.Assembly
         {
             var input = new Input(this.program);
 
-            var tokens = Lexer.Tokenize(input);
-            var ast = Parser.Parse(input, tokens);
+            List<Token> tokens;
+            try
+            {
+                tokens = Lexer.Tokenize(input);
+            }
+            catch (SyntaxErrorsException e)
+            {
+                Console.WriteLine(e.Message);
+                throw new FailedAssemblingException(e);
+            }
 
-            this.binaryCode = CodeGenerator.GenerateBinaryCode(input, ast);
+            List<OneOperandNode> ast;
+            try
+            {
+                ast = Parser.Parse(input, tokens);
+            }
+            catch (ParseErrorsException e)
+            {
+                Console.WriteLine(e.Message);
+                throw new FailedAssemblingException(e);
+            }
+
+            try
+            {
+                this.binaryCode = CodeGenerator.GenerateBinaryCode(input, ast);
+            }
+            catch(CodeGenErrorsException e)
+            {
+                Console.WriteLine(e.Message);
+                throw new FailedAssemblingException(e);
+            }
         }
     }
 }
