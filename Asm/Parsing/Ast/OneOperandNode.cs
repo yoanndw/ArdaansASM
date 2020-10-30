@@ -12,12 +12,16 @@ namespace Asm.Parsing.Ast
         public int Line { get; private set; }
         public int Col { get; private set; }
 
+        public Instructions Instruction { get; private set; }
+
         protected Token operand1;
 
         public OneOperandNode(Token instructionToken, Token operand1)
         {
             this.Line = instructionToken.Line;
             this.Col = instructionToken.Col;
+
+            this.Instruction = (instructionToken as InstructionToken).Instruction;
 
             this.operand1 = operand1;
         }
