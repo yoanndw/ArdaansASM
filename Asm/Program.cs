@@ -10,10 +10,19 @@ namespace Asm
 
         static void Main(string[] args)
         {
-            //string program = @"inc #$5 mov #$0A a";
+            if (args.Length == 0)
+            {
+                Console.WriteLine(@"Expected file name. Please run:
+<name> file");
+
+                return;
+            }
+
+            string filePath = args[0]; // C:/Users/yoann/Desktop/test.asm
+
             try
             {
-                byte[] code = Assembler.AssembleFile("C:/Users/yoann/Desktop/test.asm");
+                byte[] code = Assembler.AssembleFile(filePath);
 
                 var vm = new VirtualMachine(code);
                 vm.Run();

@@ -2,7 +2,7 @@
   "profiles": {
     "Asm": {
       "commandName": "Project",
-      "commandLineArgs": "test.asm"
+      "commandLineArgs": "C:/Users/yoann/Desktop/test.asm"
     }
   }
 }
