@@ -14,12 +14,29 @@ namespace Asm.Assembly
 
         private string lineContent;
 
+        private string instruction;
+
         public WrongPatternError(OneOperandNode instruction)
         {
             this.line = instruction.Line;
             this.col = instruction.Col;
 
             this.lineContent = instruction.LineContent;
+
+            this.instruction = instruction.Instruction.ToString().ToLower();
+        }
+
+        private string Patterns()
+        {
+            var sb = new StringBuilder("Possible patterns are:\n");
+
+            var patterns = CodeGenerator.Patterns[this.instruction];
+            foreach (string pat in patterns)
+            {
+                sb.AppendLine(this.instruction + "\t" + pat);
+            }
+
+            return sb.ToString();
         }
 
         public override string ToString()
@@ -28,7 +45,11 @@ namespace Asm.Assembly
             sb.Append($"At line {this.line}: Wrong instruction pattern\n\n");
 
             string emphase = this.lineContent.EmphasizeChar(this.col);
-            sb.Append(emphase + "\n================");
+            sb.Append(emphase + "\n\n");
+
+            string patterns = this.Patterns();
+            sb.Append(patterns + "================");
+
 
             return sb.ToString();
         }
