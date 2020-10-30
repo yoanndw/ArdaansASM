@@ -14,14 +14,25 @@ namespace Asm.Parsing.Ast
         {
         }
 
-        public override byte[] GenerateCode()
+        public override bool GenerateCode(Action logErrorFunc, out byte[] code)
         {
+            code = null;
+
             Type operand1Type = this.operand1.GetType();
             Type operand2Type = this.operand2.GetType();
 
-            byte opcode = CodeGenerator.AddOpcodes[(operand1Type, operand2Type)];
+            if (CodeGenerator.IsValidPattern((operand1Type, operand2Type), CodeGenerator.AddOpcodes))
+            {
+                byte opcode = CodeGenerator.AddOpcodes[(operand1Type, operand2Type)];
 
-            return CodeGenerator.GenerateForTwoOperands(opcode, operand1, operand2);
+                code = CodeGenerator.Generate(opcode, operand1, operand2);
+                return true;
+            }
+            else
+            {
+                logErrorFunc();
+                return false;
+            }
         }
 
         public override string ToString()

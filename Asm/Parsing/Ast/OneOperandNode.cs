@@ -16,7 +16,7 @@ namespace Asm.Parsing.Ast
             this.operand1 = operand1;
         }
 
-        public abstract byte[] GenerateCode();
+        public abstract bool GenerateCode(Action logErrorFunc, out byte[] code);
 
         public override abstract string ToString();
     }

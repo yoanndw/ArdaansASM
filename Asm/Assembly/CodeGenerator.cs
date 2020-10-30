@@ -138,13 +138,23 @@ namespace Asm.Assembly
         };
         #endregion
 
+        public static bool IsValidPattern(Type pattern, OneOperandInstructionOpcodesRef instructionRef)
+        {
+            return instructionRef.ContainsKey(pattern);
+        }
+
+        public static bool IsValidPattern((Type, Type) pattern, TwoOperandsInstructionOpcodesRef instructionRef)
+        {
+            return instructionRef.ContainsKey(pattern);
+        }
+
         #region Instruction Code Generation
-        public static byte[] GenerateForOneOperand(byte instructionOpcode, Token operand)
+        public static byte[] Generate(byte instructionOpcode, Token operand)
         {
             return new byte[] { instructionOpcode, operand.GenerateCode() };
         }
 
-        public static byte[] GenerateForTwoOperands(byte instructionOpcode, Token operand1, Token operand2)
+        public static byte[] Generate(byte instructionOpcode, Token operand1, Token operand2)
         {
             return new byte[] { instructionOpcode, operand1.GenerateCode(), operand2.GenerateCode() };
         }
@@ -153,9 +163,18 @@ namespace Asm.Assembly
         private Ast ast;
         private byte[] binaryCode;
 
+        private int errorsCount;
+
         private CodeGenerator(Ast ast)
         {
             this.ast = ast;
+
+            this.errorsCount = 0;
+        }
+
+        public void LogError()
+        {
+            this.errorsCount++;
         }
 
         public static byte[] GenerateBinaryCode(Ast ast)
@@ -168,9 +187,25 @@ namespace Asm.Assembly
 
         private void GenerateBinaryCode()
         {
-            var lsCode = this.ast.ConvertAll(node => node.GenerateCode());
+            var lsCode = new List<byte[]>();
+            foreach (OneOperandNode node in this.ast)
+            {
+                byte[] code;
+                if (node.GenerateCode(this.LogError, out code))
+                {
+                    lsCode.Add(code);
+                }
+            }
 
             this.binaryCode = lsCode.SelectMany(code => code).ToArray(); // flattens
+
+            if (this.errorsCount != 0)
+            {
+                Console.WriteLine(this.errorsCount + " errors found.");
+                Console.WriteLine("---");
+
+                throw new CodeGenErrorsException();
+            }
         }
     }
 }

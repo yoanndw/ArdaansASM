@@ -12,22 +12,23 @@ namespace Asm
     {
         static void Main(string[] args)
         {
-            string program = @"inc  ";
+            string program = @"inc #$5 mov #$0A a";
 
             var input = new Input(program);
 
             var tokens = Lexer.Tokenize(input);
 
+            var ast = Parser.Parse(input, tokens);
+            //ast.ForEach(Console.WriteLine);
+
             try
             {
-                var ast = Parser.Parse(input, tokens);
-                ast.ForEach(Console.WriteLine);
-            } 
-            catch (ParseErrorsException e)
+                var code = CodeGenerator.GenerateBinaryCode(ast);
+            }
+            catch (CodeGenErrorsException e)
             {
                 Console.WriteLine(e);
             }
-
         }
     }
 }
