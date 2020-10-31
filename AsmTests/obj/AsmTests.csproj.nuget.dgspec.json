@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj": {}
+    "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj": {}
   },
   "projects": {
-    "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj": {
+    "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+        "projectUniqueName": "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj",
         "projectName": "AsmTests",
-        "projectPath": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+        "projectPath": "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj",
         "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-        "outputPath": "S:\\Code\\C#\\Asm\\AsmTests\\obj\\",
+        "outputPath": "S:\\Code\\C#\\Ardaans\\AsmTests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
-                "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj"
+              "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj": {
+                "projectPath": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj"
               }
             }
           }
@@ -64,61 +64,6 @@
               "version": "[1.3.0, )"
             }
           },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
-        "projectName": "Asm",
-        "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
-        "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-        "outputPath": "S:\\Code\\C#\\Asm\\Asm\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\yoann\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
           "imports": [
             "net461",
             "net462",

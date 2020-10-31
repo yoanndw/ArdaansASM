@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Asm": {
-      "commandName": "Project",
-      "commandLineArgs": "test.asm"
-    }
-  }
-}

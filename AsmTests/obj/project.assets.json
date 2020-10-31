@@ -1634,16 +1634,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
-      },
-      "Asm/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/Asm.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Asm.dll": {}
-        }
       }
     }
   },
@@ -5649,19 +5639,14 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
-    },
-    "Asm/1.0.0": {
-      "type": "project",
-      "path": "../Asm/Asm.csproj",
-      "msbuildProject": "../Asm/Asm.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Asm >= 1.0.0",
       "MSTest.TestAdapter >= 2.1.2",
       "MSTest.TestFramework >= 2.1.2",
       "Microsoft.NET.Test.Sdk >= 16.7.1",
+      "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj",
       "coverlet.collector >= 1.3.0"
     ]
   },
@@ -5672,11 +5657,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+      "projectUniqueName": "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj",
       "projectName": "AsmTests",
-      "projectPath": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+      "projectPath": "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj",
       "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-      "outputPath": "S:\\Code\\C#\\Asm\\AsmTests\\obj\\",
+      "outputPath": "S:\\Code\\C#\\Ardaans\\AsmTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5695,8 +5680,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
-              "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj"
+            "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj": {
+              "projectPath": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj"
             }
           }
         }
@@ -5747,5 +5732,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Projet 'S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj' introuvable. Vérifiez que la référence de projet est valide et que le fichier projet existe.",
+      "libraryId": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }
