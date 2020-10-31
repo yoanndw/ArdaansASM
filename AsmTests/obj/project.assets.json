@@ -1634,16 +1634,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
-      },
-      "Ardaans/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/Ardaans.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Ardaans.dll": {}
-        }
       }
     }
   },
@@ -5649,19 +5639,14 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
-    },
-    "Ardaans/1.0.0": {
-      "type": "project",
-      "path": "../Asm/Asm.csproj",
-      "msbuildProject": "../Asm/Asm.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Ardaans >= 1.0.0",
       "MSTest.TestAdapter >= 2.1.2",
       "MSTest.TestFramework >= 2.1.2",
       "Microsoft.NET.Test.Sdk >= 16.7.1",
+      "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj",
       "coverlet.collector >= 1.3.0"
     ]
   },
@@ -5747,5 +5732,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Projet 'S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj' introuvable. Vérifiez que la référence de projet est valide et que le fichier projet existe.",
+      "libraryId": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }
