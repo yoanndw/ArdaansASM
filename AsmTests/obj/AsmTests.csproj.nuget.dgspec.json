@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj": {}
+    "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj": {}
   },
   "projects": {
-    "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj": {
+    "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+        "projectUniqueName": "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj",
         "projectName": "AsmTests",
-        "projectPath": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+        "projectPath": "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj",
         "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-        "outputPath": "S:\\Code\\C#\\Asm\\AsmTests\\obj\\",
+        "outputPath": "S:\\Code\\C#\\Ardaans\\AsmTests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
-                "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj"
+              "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj": {
+                "projectPath": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj"
               }
             }
           }
@@ -83,14 +83,14 @@
         }
       }
     },
-    "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
+    "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
-        "projectName": "Asm",
-        "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj",
+        "projectUniqueName": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj",
+        "projectName": "Ardaans",
+        "projectPath": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj",
         "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-        "outputPath": "S:\\Code\\C#\\Asm\\Asm\\obj\\",
+        "outputPath": "S:\\Code\\C#\\Ardaans\\Asm\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

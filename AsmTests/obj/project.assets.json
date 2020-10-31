@@ -1635,14 +1635,14 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "Asm/1.0.0": {
+      "Ardaans/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "compile": {
-          "bin/placeholder/Asm.dll": {}
+          "bin/placeholder/Ardaans.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Asm.dll": {}
+          "bin/placeholder/Ardaans.dll": {}
         }
       }
     }
@@ -5650,7 +5650,7 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Asm/1.0.0": {
+    "Ardaans/1.0.0": {
       "type": "project",
       "path": "../Asm/Asm.csproj",
       "msbuildProject": "../Asm/Asm.csproj"
@@ -5658,7 +5658,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Asm >= 1.0.0",
+      "Ardaans >= 1.0.0",
       "MSTest.TestAdapter >= 2.1.2",
       "MSTest.TestFramework >= 2.1.2",
       "Microsoft.NET.Test.Sdk >= 16.7.1",
@@ -5672,11 +5672,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+      "projectUniqueName": "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj",
       "projectName": "AsmTests",
-      "projectPath": "S:\\Code\\C#\\Asm\\AsmTests\\AsmTests.csproj",
+      "projectPath": "S:\\Code\\C#\\Ardaans\\AsmTests\\AsmTests.csproj",
       "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-      "outputPath": "S:\\Code\\C#\\Asm\\AsmTests\\obj\\",
+      "outputPath": "S:\\Code\\C#\\Ardaans\\AsmTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5695,8 +5695,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj": {
-              "projectPath": "S:\\Code\\C#\\Asm\\Asm\\Asm.csproj"
+            "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj": {
+              "projectPath": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj"
             }
           }
         }

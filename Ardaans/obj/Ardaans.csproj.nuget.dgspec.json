@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj": {}
+    "S:\\Code\\C#\\Ardaans\\Ardaans\\Ardaans.csproj": {}
   },
   "projects": {
-    "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj": {
+    "S:\\Code\\C#\\Ardaans\\Ardaans\\Ardaans.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj",
+        "projectUniqueName": "S:\\Code\\C#\\Ardaans\\Ardaans\\Ardaans.csproj",
         "projectName": "Ardaans",
-        "projectPath": "S:\\Code\\C#\\Ardaans\\Asm\\Asm.csproj",
+        "projectPath": "S:\\Code\\C#\\Ardaans\\Ardaans\\Ardaans.csproj",
         "packagesPath": "C:\\Users\\yoann\\.nuget\\packages\\",
-        "outputPath": "S:\\Code\\C#\\Ardaans\\Asm\\obj\\",
+        "outputPath": "S:\\Code\\C#\\Ardaans\\Ardaans\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

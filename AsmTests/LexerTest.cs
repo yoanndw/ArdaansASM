@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Asm;
-using Asm.Tokens;
+using Ardaans;
+using Ardaans.Tokens;
 using System.Collections.Generic;
-using Asm.Errors;
+using Ardaans.Errors;
 
 namespace AsmTests
 {
