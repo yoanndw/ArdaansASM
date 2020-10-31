@@ -132,6 +132,15 @@ An instrcution is an instruction keyword (`mov`, `add`, `sub`, ...), followed by
 
 **/!\ ATTENTION /!\\**: `mov a, b` is forbidden: operands **must** be separated by spaces.
 
+## Comments
+A comment starts with `;`, and finish at the end of the line.
+
+**Example**
+```x86asm
+mov a b ; comment ...
+mov b c
+```
+
 ## Number and Address
 The only numerical value available is the hex value. It's represented by a `$`, followed by the hex value (e.g. `5` or `A`). This pattern (`$ + number`) will be called *numerical value* further in this documentation.
 
