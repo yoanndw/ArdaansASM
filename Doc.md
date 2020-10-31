@@ -11,6 +11,37 @@ Ardaans is made up of a virtual machine (VM), that interpret binary code (see [O
 - Program Memory, which stores the program in binary : 256 bytes
 - Storage Memory (RAM) : 256 bytes
 
+# Assembly Language Syntax
+
+## General
+An instrcution is an instruction keyword (`mov`, `add`, `sub`, ...), followed by one or two operands (register, number, ...), which are separated by spaces.
+
+**Example**
+
+`mov a b`: `mov` is the instruction keyword, and the operands are `a` and `b`.
+
+**/!\ ATTENTION /!\\**: `mov a, b` is forbidden: operands **must** be separated by spaces.
+
+## Comments
+A comment starts with `;`, and finish at the end of the line.
+
+**Example**
+```x86asm
+mov a b ; comment ...
+mov b c
+```
+
+## Number and Address
+The only numerical value available is the hex value. It's represented by a `$`, followed by the hex value (e.g. `5` or `A`). This pattern (`$ + number`) will be called *numerical value* further in this documentation.
+
+### Number
+A *number* is a `#` followed by a *numerical value*: `#$5`, `#$A`
+
+### Address
+An *address* is a `&` followed by:
+- A *numerical value*. So it points to the address <*numerical value*>. **Example:** `&$5` points to the address `$5`.
+- A *register*. So it points to the address stored in <*register*>. **Example:** if `A` equals `$5`, `&a` points to the address `$5`.
+
 # Flags
 There are only two flags on v0.1:
 - Eq, for **Eq**uals
@@ -120,34 +151,3 @@ There are also *conditional jumps*. These are specific jump instructions which j
 | `jne #$05`   |   `15 05`   | Jumps to offset `$05` of the Program Memory if the flag `Eq` is set to *False*. See [Flags](#flags) and [Jump](#jumping) |
 | `jsm #$05`   |   `16 05`   |  Jumps to offset `$05` of the Program Memory if the flag `Sm` is set to *True*. See [Flags](#flags) and [Jump](#jumping) |
 | `jns #$05`   |   `17 05`   | Jumps to offset `$05` of the Program Memory if the flag `Sm` is set to *False*. See [Flags](#flags) and [Jump](#jumping) |
-
-# Assembly Language Syntax
-
-## General
-An instrcution is an instruction keyword (`mov`, `add`, `sub`, ...), followed by one or two operands (register, number, ...), which are separated by spaces.
-
-**Example**
-
-`mov a b`: `mov` is the instruction keyword, and the operands are `a` and `b`.
-
-**/!\ ATTENTION /!\\**: `mov a, b` is forbidden: operands **must** be separated by spaces.
-
-## Comments
-A comment starts with `;`, and finish at the end of the line.
-
-**Example**
-```x86asm
-mov a b ; comment ...
-mov b c
-```
-
-## Number and Address
-The only numerical value available is the hex value. It's represented by a `$`, followed by the hex value (e.g. `5` or `A`). This pattern (`$ + number`) will be called *numerical value* further in this documentation.
-
-### Number
-A *number* is a `#` followed by a *numerical value*: `#$5`, `#$A`
-
-### Address
-An *address* is a `&` followed by:
-- A *numerical value*. So it points to the address <*numerical value*>. **Example:** `&$5` points to the address `$5`.
-- A *register*. So it points to the address stored in <*register*>. **Example:** if `A` equals `$5`, `&a` points to the address `$5`.
