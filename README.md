@@ -9,7 +9,7 @@ Ardaans is still in Beta (version 0.1).
 [Learn more](Doc.md).
 
 # Run via executable
-To run directly via the executable file `ardaans`. Simply run this command in your terminal:
+To run directly via the executable file `ardaans` (get binaries in [Releases](https://gitlab.com/yoanndw/VASM/-/releases)). Simply run this command in your terminal:
 ```
 $ ./ardaans file
 ```
