@@ -19,7 +19,7 @@ namespace Ardaans.Assembly
             // 0x01 => mov R V
             new InstructionNode2Ops
             (
-                null, 
+                null,
                 new InstructionToken(0, 0, Instructions.Mov),
                 new RegisterToken(0, 0, Registers.RegA),
                 new NumericalValueToken(0, 0, 0)
@@ -68,6 +68,152 @@ namespace Ardaans.Assembly
                 new InstructionToken(0, 0, Instructions.Mov),
                 new RegisterToken(0, 0, Registers.RegA),
                 new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x07 => add R V
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Add),
+                new RegisterToken(0, 0, Registers.RegA),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x08 => add R R
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Add),
+                new RegisterToken(0, 0, Registers.RegA),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x09 => sub R V
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Sub),
+                new RegisterToken(0, 0, Registers.RegA),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x0A => sub R R
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Sub),
+                new RegisterToken(0, 0, Registers.RegA),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x0B => mul R V
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Mul),
+                new RegisterToken(0, 0, Registers.RegA),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x0C => mul R R
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Mul),
+                new RegisterToken(0, 0, Registers.RegA),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x0D => div R V
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Div),
+                new RegisterToken(0, 0, Registers.RegA),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x0E => div R R
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Div),
+                new RegisterToken(0, 0, Registers.RegA),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x0F => cmp R V
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Cmp),
+                new RegisterToken(0, 0, Registers.RegA),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x10 => cmp R R
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Cmp),
+                new RegisterToken(0, 0, Registers.RegA),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x11 => inc R
+            new InstructionNode1Op
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Inc),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x12 => dec R
+            new InstructionNode1Op
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Dec),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x13 => jmp V
+            new InstructionNode1Op
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Jmp),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x14 => jeq V
+            new InstructionNode1Op
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Jeq),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x15 => jne V
+            new InstructionNode1Op
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Jne),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x16 => jsm V
+            new InstructionNode1Op
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Jsm),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x17 => jns V
+            new InstructionNode1Op
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Jns),
+                new NumericalValueToken(0, 0, 0)
             ),
         };
 
