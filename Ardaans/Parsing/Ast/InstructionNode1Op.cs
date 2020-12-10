@@ -30,7 +30,14 @@ namespace Ardaans.Parsing.Ast
             this.operand1 = operand1;
         }
 
-        public abstract bool GenerateCode(Action<InstructionNode1Op> logErrorFunc, out byte[] code);
+        public virtual bool HasSamePattern(InstructionNode1Op other)
+        {
+            Type op1Type = this.operand1.GetType();
+            Type otherOp1Type = other.operand1.GetType();
+
+            return this.Instruction == other.Instruction
+                && op1Type == otherOp1Type;
+        }
 
         public override abstract string ToString();
     }
