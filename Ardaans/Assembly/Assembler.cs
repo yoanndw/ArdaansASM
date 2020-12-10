@@ -62,7 +62,7 @@ namespace Ardaans.Assembly
 
             try
             {
-                this.binaryCode = CodeGenerator.GenerateBinaryCode(input, ast);
+                this.binaryCode = CodeGenerator.GenerateCode(input, ast);
             }
             catch(CodeGenErrorsException e)
             {
