@@ -217,12 +217,28 @@ namespace Ardaans.Assembly
             ),
         };
 
+        private Input input;
+
         private List<InstructionNode1Op> ast;
         private byte[] output;
 
+        private int errorsCount;
+
         public CodeGenerator(Input input, List<InstructionNode1Op> ast)
         {
+            this.input = input;
             this.ast = ast;
+        }
+
+        private void LogError(WrongPatternError err)
+        {
+            this.errorsCount++;
+            Console.WriteLine(err);
+        }
+
+        private void LogWrongPatternError(InstructionNode1Op instruction)
+        {
+            this.LogError(new WrongPatternError(instruction));
         }
 
         public static byte[] GenerateCode(Input input, List<InstructionNode1Op> ast)
@@ -236,10 +252,37 @@ namespace Ardaans.Assembly
         private void GenerateCode()
         {
             // Foreach node: Node => byte[]
-            List<byte[]> opcodes = this.ast.ConvertAll(this.GenerateInstructionCode);
+            List<byte[]> opcodes = this.ast
+                .ConvertAll(this.GenerateInstructionCode) // `GenerateInstructionCode` returns `null` when wrong pattern
+                .Where(instructionCode => instructionCode != null) // so keep only non-null
+                .ToList();
 
             // Flatten: List<byte[]> => byte[]
             this.output = opcodes.SelectMany(c => c).ToArray();
+
+            if (this.errorsCount != 0)
+            {
+                Console.WriteLine(this.errorsCount + " errors found.");
+                Console.WriteLine("---");
+
+                throw new CodeGenErrorsException();
+            }
+        }
+
+        private byte[] GenerateInstructionCode(InstructionNode1Op instruction)
+        {
+            if (GenerateInstructionOpcode(instruction, out byte opcode)) // if pattern exists
+            {
+                List<byte> code = instruction.GenerateOperandOpcode().ToList(); // { op1, op2 }
+                code.Insert(0, opcode); // { instruction, op1, op2 }
+
+                return code.ToArray();
+            }
+
+            // If not exist => error
+            this.LogWrongPatternError(instruction);
+
+            return null;
         }
 
         public static bool GenerateInstructionOpcode(InstructionNode1Op instruction, out byte opcode)
@@ -261,19 +304,6 @@ namespace Ardaans.Assembly
                 opcode = (byte)iOpcode;
                 return true;
             }
-        }
-
-        private byte[] GenerateInstructionCode(InstructionNode1Op instruction)
-        {
-            if (GenerateInstructionOpcode(instruction, out byte opcode)) // if pattern exists
-            {
-                List<byte> code = instruction.GenerateOperandOpcode().ToList(); // { op1, op2 }
-                code.Insert(0, opcode); // { instruction, op1, op2 }
-
-                return code.ToArray();
-            }
-
-            return null;
         }
     }
 }

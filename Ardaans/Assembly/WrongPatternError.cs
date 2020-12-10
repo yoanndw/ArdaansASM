@@ -26,7 +26,7 @@ namespace Ardaans.Assembly
             this.instruction = instruction.Instruction.ToString().ToLower();
         }
 
-        private string Patterns()
+        /*private string Patterns()
         {
             var sb = new StringBuilder("Possible patterns are:\n");
 
@@ -37,7 +37,7 @@ namespace Ardaans.Assembly
             }
 
             return sb.ToString();
-        }
+        }*/
 
         public override string ToString()
         {
@@ -47,8 +47,8 @@ namespace Ardaans.Assembly
             string emphase = this.lineContent.EmphasizeChar(this.col);
             sb.Append(emphase + "\n\n");
 
-            string patterns = this.Patterns();
-            sb.Append(patterns + "================");
+            //string patterns = this.Patterns();
+            sb.Append(/*patterns + */"================");
 
 
             return sb.ToString();
