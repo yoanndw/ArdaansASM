@@ -84,208 +84,39 @@ namespace Ardaans.Parsing
             if (this.ExpectInstructionToken(out instructionToken))
             {
                 Instructions instruction = instructionToken.Instruction;
-                switch (instruction)
+                
+                int opsCount = instruction.OperandsCount();
+                if (opsCount == 1)
                 {
-                    case Instructions.Mov:
-                        {
-                            Token operand1;
-                            Token operand2;
-                            if (this.ExpectTwoOperands(out operand1, out operand2))
-                            {
-                                node = new MovInstruction(this.rawInput, instructionToken, operand1, operand2);
-                            }
-                            else
-                            {
-                                this.LogExpectedTwoOperandsError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
+                    Token op1;
+                    if (this.ExpectOneOperand(out op1))
+                    {
+                        node = new InstructionNode1Op(this.rawInput, instructionToken, op1);
+                        
+                        return true;
+                    }
+                    else
+                    {
+                        this.LogExpectedOneOperandError(instructionToken);
 
-                    case Instructions.Add:
-                        {
-                            Token operand1;
-                            Token operand2;
-                            if (this.ExpectTwoOperands(out operand1, out operand2))
-                            {
-                                node = new AddInstruction(this.rawInput, instructionToken, operand1, operand2);
-                            }
-                            else
-                            {
-                                this.LogExpectedTwoOperandsError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
+                        return false;
+                    }
+                }
+                else if (opsCount == 2)
+                {
+                    Token op1, op2;
+                    if (this.ExpectTwoOperands(out op1, out op2))
+                    {
+                        node = new InstructionNode2Ops(this.rawInput, instructionToken, op1, op2);
 
-                    case Instructions.Sub:
-                        {
-                            Token operand1;
-                            Token operand2;
-                            if (this.ExpectTwoOperands(out operand1, out operand2))
-                            {
-                                node = new SubInstruction(this.rawInput, instructionToken, operand1, operand2);
-                            }
-                            else
-                            {
-                                this.LogExpectedTwoOperandsError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
+                        return true;
+                    }
+                    else
+                    {
+                        this.LogExpectedTwoOperandsError(instructionToken);
 
-                    case Instructions.Mul:
-                        {
-                            Token operand1;
-                            Token operand2;
-                            if (this.ExpectTwoOperands(out operand1, out operand2))
-                            {
-                                node = new MulInstruction(this.rawInput, instructionToken, operand1, operand2);
-                            }
-                            else
-                            {
-                                this.LogExpectedTwoOperandsError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
-
-                    case Instructions.Div:
-                        {
-                            Token operand1;
-                            Token operand2;
-                            if (this.ExpectTwoOperands(out operand1, out operand2))
-                            {
-                                node = new DivInstruction(this.rawInput, instructionToken, operand1, operand2);
-                            }
-                            else
-                            {
-                                this.LogExpectedTwoOperandsError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
-
-                    case Instructions.Cmp:
-                        {
-                            Token operand1;
-                            Token operand2;
-                            if (this.ExpectTwoOperands(out operand1, out operand2))
-                            {
-                                node = new CmpInstruction(this.rawInput, instructionToken, operand1, operand2);
-                            }
-                            else
-                            {
-                                this.LogExpectedTwoOperandsError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
-
-                    case Instructions.Inc:
-                        {
-                            Token operand;
-                            if (this.ExpectOneOperand(out operand))
-                            {
-                                node = new IncInstruction(this.rawInput, instructionToken, operand);
-                            }
-                            else
-                            {
-                                this.LogExpectedOneOperandError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
-
-                    case Instructions.Dec:
-                        {
-                            Token operand;
-                            if (this.ExpectOneOperand(out operand))
-                            {
-                                node = new DecInstruction(this.rawInput, instructionToken, operand);
-                            }
-                            else
-                            {
-                                this.LogExpectedOneOperandError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
-
-                    case Instructions.Jmp:
-                        {
-                            Token operand;
-                            if (this.ExpectOneOperand(out operand))
-                            {
-                                node = new JmpInstruction(this.rawInput, instructionToken, operand);
-                            }
-                            else
-                            {
-                                this.LogExpectedOneOperandError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
-
-                    case Instructions.Jeq:
-                        {
-                            Token operand;
-                            if (this.ExpectOneOperand(out operand))
-                            {
-                                node = new JeqInstruction(this.rawInput, instructionToken, operand);
-                            }
-                            else
-                            {
-                                this.LogExpectedOneOperandError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
-
-                    case Instructions.Jne:
-                        {
-                            Token operand;
-                            if (this.ExpectOneOperand(out operand))
-                            {
-                                node = new JneInstruction(this.rawInput, instructionToken, operand);
-                            }
-                            else
-                            {
-                                this.LogExpectedOneOperandError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
-
-                    case Instructions.Jsm:
-                        {
-                            Token operand;
-                            if (this.ExpectOneOperand(out operand))
-                            {
-                                node = new JsmInstruction(this.rawInput, instructionToken, operand);
-                            }
-                            else
-                            {
-                                this.LogExpectedOneOperandError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
-
-                    case Instructions.Jns:
-                        {
-                            Token operand;
-                            if (this.ExpectOneOperand(out operand))
-                            {
-                                node = new JnsInstruction(this.rawInput, instructionToken, operand);
-                            }
-                            else
-                            {
-                                this.LogExpectedOneOperandError(instructionToken);
-                                return false;
-                            }
-                        }
-                        break;
+                        return false;
+                    }
                 }
             }
 
