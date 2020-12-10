@@ -5,7 +5,7 @@ using Ardaans.Tokens;
 
 namespace Ardaans.Parsing.Ast
 {
-    public abstract class InstructionNode2Ops : InstructionNode1Op
+    public class InstructionNode2Ops : InstructionNode1Op
     {
         protected Token operand2;
 

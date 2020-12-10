@@ -7,7 +7,7 @@ using Ardaans.Tokens;
 
 namespace Ardaans.Parsing.Ast
 {
-    public abstract class InstructionNode1Op
+    public class InstructionNode1Op
     {
         public int Line { get; private set; }
         public int Col { get; private set; }
