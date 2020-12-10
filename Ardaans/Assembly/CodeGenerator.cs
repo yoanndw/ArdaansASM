@@ -96,7 +96,7 @@ namespace Ardaans.Assembly
             this.output = opcodes.SelectMany(c => c).ToArray();
         }
 
-        private bool GenerateInstructionOpcode(InstructionNode1Op instruction, out byte opcode)
+        public static bool GenerateInstructionOpcode(InstructionNode1Op instruction, out byte opcode)
         {
             int iOpcode = Array.FindIndex
             (
@@ -119,7 +119,7 @@ namespace Ardaans.Assembly
 
         private byte[] GenerateInstructionCode(InstructionNode1Op instruction)
         {
-            if (this.GenerateInstructionOpcode(instruction, out byte opcode)) // if pattern exists
+            if (GenerateInstructionOpcode(instruction, out byte opcode)) // if pattern exists
             {
                 List<byte> code = instruction.GenerateOperandOpcode().ToList(); // { op1, op2 }
                 code.Insert(0, opcode); // { instruction, op1, op2 }
