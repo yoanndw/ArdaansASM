@@ -24,6 +24,23 @@ namespace Ardaans.Assembly
             this.ast = ast;
         }
 
+        public static byte[] GenerateCode(Input input, List<InstructionNode1Op> ast)
+        {
+            var codegen = new CodeGenerator(input, ast);
+            codegen.GenerateCode();
+
+            return codegen.output;
+        }
+
+        private void GenerateCode()
+        {
+            // Foreach node: Node => byte[]
+            List<byte[]> opcodes = this.ast.ConvertAll(this.GenerateInstructionCode);
+
+            // Flatten: List<byte[]> => byte[]
+            this.output = opcodes.SelectMany(c => c).ToArray();
+        }
+
         private byte[] GenerateInstructionCode(InstructionNode1Op instruction)
         {
             // Get instruction opcode
