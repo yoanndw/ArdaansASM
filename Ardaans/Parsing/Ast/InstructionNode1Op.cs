@@ -23,7 +23,8 @@ namespace Ardaans.Parsing.Ast
             this.Line = instructionToken.Line;
             this.Col = instructionToken.Col;
 
-            this.LineContent = input.GetLine(this.Line);
+            if (input != null)
+                this.LineContent = input.GetLine(this.Line);
 
             this.Instruction = (instructionToken as InstructionToken).Instruction;
 
@@ -46,7 +47,5 @@ namespace Ardaans.Parsing.Ast
         {
             return new byte[] { this.operand1.GenerateCode() };
         }
-
-        public override abstract string ToString();
     }
 }
