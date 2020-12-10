@@ -4,13 +4,34 @@ using System.Text;
 
 namespace Ardaans.Tokens
 {
+    // Value is number of operands
     public enum Instructions
     {
-        Mov,
-        Add, Sub, Mul, Div,
-        Cmp,
-        Inc, Dec,
-        Jmp, Jeq, Jne, Jsm, Jns,
+        Mov = 2, // 2 ops
+
+        Add = 2,
+        Sub = 2,
+        Mul = 2,
+        Div = 2,
+
+        Cmp = 2,
+
+        Inc = 1, // 1 op
+        Dec = 1,
+
+        Jmp = 1,
+        Jeq = 1,
+        Jne = 1,
+        Jsm = 1,
+        Jns = 1,
+    }
+
+    public static class InstructionsExtensions
+    {
+        public static int OperandsCount(this Instructions instruction)
+        {
+            return (int)instruction;
+        }
     }
 
     public class InstructionToken : Token
