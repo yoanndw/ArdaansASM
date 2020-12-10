@@ -32,6 +32,9 @@ namespace Ardaans.Parsing.Ast
 
         public virtual bool HasSamePattern(InstructionNode1Op other)
         {
+            if (other == null)
+                return false;
+
             Type op1Type = this.operand1.GetType();
             Type otherOp1Type = other.operand1.GetType();
 

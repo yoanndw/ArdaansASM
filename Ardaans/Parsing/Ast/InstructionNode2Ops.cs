@@ -17,6 +17,9 @@ namespace Ardaans.Parsing.Ast
 
         public override bool HasSamePattern(InstructionNode1Op other)
         {
+            if (other == null)
+                return false;
+
             var other2Ops = other as InstructionNode2Ops;
             if (other2Ops == null)
                 return false;
