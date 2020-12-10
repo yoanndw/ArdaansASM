@@ -39,6 +39,11 @@ namespace Ardaans.Parsing.Ast
                 && op1Type == otherOp1Type;
         }
 
+        public virtual byte[] GenerateOperandOpcode()
+        {
+            return new byte[] { this.operand1.GenerateCode() };
+        }
+
         public override abstract string ToString();
     }
 }

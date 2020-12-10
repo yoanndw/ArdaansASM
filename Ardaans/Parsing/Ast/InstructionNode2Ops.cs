@@ -27,5 +27,10 @@ namespace Ardaans.Parsing.Ast
             return base.HasSamePattern(other)
                 && op2Type == otherOp2Type;
         }
+
+        public override byte[] GenerateOperandOpcode()
+        {
+            return new byte[] { this.operand1.GenerateCode(), this.operand2.GenerateCode() };
+        }
     }
 }
