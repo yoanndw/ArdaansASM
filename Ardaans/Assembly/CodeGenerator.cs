@@ -217,6 +217,12 @@ namespace Ardaans.Assembly
             ),
         };
 
+        public static IEnumerable<InstructionNode1Op> GetInstructionPatterns(InstructionNode1Op instruction)
+        {
+            return possiblePatterns
+                .Where(pat => instruction.HasSamePattern(pat));
+        }
+
         private Input input;
 
         private List<InstructionNode1Op> ast;
