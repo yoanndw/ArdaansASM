@@ -16,7 +16,7 @@ namespace Ardaans.Assembly
 
         private string instruction;
 
-        public WrongPatternError(OneOperandNode instruction)
+        public WrongPatternError(InstructionNode1Op instruction)
         {
             this.line = instruction.Line;
             this.col = instruction.Col;

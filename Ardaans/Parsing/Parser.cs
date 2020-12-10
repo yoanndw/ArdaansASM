@@ -13,7 +13,7 @@ namespace Ardaans.Parsing
         private List<Token> source;
         private int current;
 
-        private List<OneOperandNode> nodes;
+        private List<InstructionNode1Op> nodes;
 
         private int errorsCount;
 
@@ -22,7 +22,7 @@ namespace Ardaans.Parsing
             this.rawInput = rawInput;
             this.source = source;
             this.current = 0;
-            this.nodes = new List<OneOperandNode>();
+            this.nodes = new List<InstructionNode1Op>();
 
             this.errorsCount = 0;
         }
@@ -49,7 +49,7 @@ namespace Ardaans.Parsing
 
         private bool IsAtEnd() => this.current >= this.source.Count;
 
-        public static List<OneOperandNode> Parse(Input input, List<Token> source)
+        public static List<InstructionNode1Op> Parse(Input input, List<Token> source)
         {
             var parser = new Parser(input, source);
             parser.GenerateAst();
@@ -60,7 +60,7 @@ namespace Ardaans.Parsing
         {
             while (!this.IsAtEnd())
             {
-                OneOperandNode currentInstruction;
+                InstructionNode1Op currentInstruction;
                 if (this.GenerateNode(out currentInstruction))
                 {
                     this.nodes.Add(currentInstruction);
@@ -76,7 +76,7 @@ namespace Ardaans.Parsing
             }
         }
 
-        private bool GenerateNode(out OneOperandNode node)
+        private bool GenerateNode(out InstructionNode1Op node)
         {
             node = null;
 

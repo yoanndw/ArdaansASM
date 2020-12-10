@@ -7,7 +7,7 @@ using Ardaans.Tokens;
 
 namespace Ardaans.Parsing.Ast
 {
-    public abstract class OneOperandNode
+    public abstract class InstructionNode1Op
     {
         public int Line { get; private set; }
         public int Col { get; private set; }
@@ -18,7 +18,7 @@ namespace Ardaans.Parsing.Ast
 
         protected Token operand1;
 
-        public OneOperandNode(Input input, Token instructionToken, Token operand1)
+        public InstructionNode1Op(Input input, Token instructionToken, Token operand1)
         {
             this.Line = instructionToken.Line;
             this.Col = instructionToken.Col;
@@ -30,7 +30,7 @@ namespace Ardaans.Parsing.Ast
             this.operand1 = operand1;
         }
 
-        public abstract bool GenerateCode(Action<OneOperandNode> logErrorFunc, out byte[] code);
+        public abstract bool GenerateCode(Action<InstructionNode1Op> logErrorFunc, out byte[] code);
 
         public override abstract string ToString();
     }

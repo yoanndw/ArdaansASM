@@ -49,7 +49,7 @@ namespace Ardaans.Assembly
                 throw new FailedAssemblingException(e);
             }
 
-            List<OneOperandNode> ast;
+            List<InstructionNode1Op> ast;
             try
             {
                 ast = Parser.Parse(input, tokens);
