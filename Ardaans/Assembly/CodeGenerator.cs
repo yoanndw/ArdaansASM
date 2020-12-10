@@ -13,7 +13,62 @@ namespace Ardaans.Assembly
     {
         private static InstructionNode1Op[] possiblePatterns =
         {
+            // 0x00 => no instruction
+            null,
 
+            // 0x01 => mov R V
+            new InstructionNode2Ops
+            (
+                null, 
+                new InstructionToken(0, 0, Instructions.Mov),
+                new RegisterToken(0, 0, Registers.RegA),
+                new NumericalValueToken(0, 0, 0)
+            ),
+
+            // 0x02 => mov R &V
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Mov),
+                new RegisterToken(0, 0, Registers.RegA),
+                new AddressValueToken(0, 0, 0)
+            ),
+
+            // 0x03 => mov &V R
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Mov),
+                new AddressValueToken(0, 0, 0),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x04 => mov R &R
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Mov),
+                new RegisterToken(0, 0, Registers.RegA),
+                new AddressRegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x05 => mov &R R
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Mov),
+                new AddressRegisterToken(0, 0, Registers.RegA),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
+
+            // 0x06 => mov R R
+            new InstructionNode2Ops
+            (
+                null,
+                new InstructionToken(0, 0, Instructions.Mov),
+                new RegisterToken(0, 0, Registers.RegA),
+                new RegisterToken(0, 0, Registers.RegA)
+            ),
         };
 
         private List<InstructionNode1Op> ast;
@@ -41,21 +96,33 @@ namespace Ardaans.Assembly
             this.output = opcodes.SelectMany(c => c).ToArray();
         }
 
-        private byte[] GenerateInstructionCode(InstructionNode1Op instruction)
+        private bool GenerateInstructionOpcode(InstructionNode1Op instruction, out byte opcode)
         {
-            // Get instruction opcode
-            int opcode = Array.FindIndex
+            int iOpcode = Array.FindIndex
             (
                 possiblePatterns,
                 pat => instruction.HasSamePattern(pat)
             );
 
-            if (opcode != -1) // if pattern exists
+            // Not found
+            if (iOpcode == -1)
             {
-                byte bOpcode = (byte)opcode;
+                opcode = 0;
+                return false;
+            }
+            else
+            {
+                opcode = (byte)iOpcode;
+                return true;
+            }
+        }
 
+        private byte[] GenerateInstructionCode(InstructionNode1Op instruction)
+        {
+            if (this.GenerateInstructionOpcode(instruction, out byte opcode)) // if pattern exists
+            {
                 List<byte> code = instruction.GenerateOperandOpcode().ToList(); // { op1, op2 }
-                code.Insert(0, bOpcode); // { instruction, op1, op2 }
+                code.Insert(0, opcode); // { instruction, op1, op2 }
 
                 return code.ToArray();
             }
